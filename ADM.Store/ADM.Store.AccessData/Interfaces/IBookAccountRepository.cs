@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ADM.Store.AccessData.Interfaces
 {
-    public interface IBookAccountRepository
+    internal interface IBookAccountRepository
     {
-        public Task<int> Add(Guid idClient);
-        public Task<bool> RefreshTotal(int idBookAccount);
-        public Task<bool> ExistsBookAccount(Guid idClient, int idBookAccount);
-        public Task<ClientDTO> DetailsBookAccount(int idBookAccount);
-        public Task<bool> Delete();
-        public Task<ClientDTO> GetBookAccountsByIdClient(Guid idClient);
+        public Task<int> AddAsync(Guid idClient);
+        public Task<bool> RefreshTotalAsync(int idBookAccount);
+        public Task<bool> ExistsBookAccountAsync(Guid idClient, int idBookAccount);
+        public Task<ClientDTO> DetailsBookAccountAsync(int idBookAccount);
+        public Task<bool> DeleteBookAccountAsync(Guid idClient, int idBookAccount);  
+        public Task<ClientDTO> GetBookAccountsByIdClientAsync(Guid idClient);
     }
 }
   

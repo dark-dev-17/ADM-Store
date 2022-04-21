@@ -1,1 +1,1 @@
-﻿Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Context "ADMStoreContext" -ContextDir "../ADM.Store.AccessData"
+﻿Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Context "../ADMStoreContext" -ContextDir "../ADM.Store.AccessData"
