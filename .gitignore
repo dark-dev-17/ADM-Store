@@ -1,0 +1,24 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ADM.Store/ADM.Store.AccessData/bin/Debug/net6.0
+/ADM.Store/ADM.Store.AccessData/obj/Debug/net6.0
+/ADM.Store/ADM.Store.Api/bin/Debug/net6.0
+/ADM.Store/ADM.Store.Api/obj/Debug/net6.0
+/ADM.Store/ADM.Store.DataBase/bin/Debug/net6.0
+/ADM.Store/ADM.Store.DataBase/obj/Debug/net6.0
+/ADM.Store/ADM.Store.Models/bin/Debug/net6.0
+/ADM.Store/ADM.Store.Models/obj/Debug/net6.0
+/ADM.Store/ADM.Store.Service/bin/Debug/net6.0
+/ADM.Store/ADM.Store.Service/obj/Debug/net6.0
+/ADM.Store/ADM.Store.Service/obj
+/ADM.Store/ADM.Store.Models/obj
+/ADM.Store/ADM.Store.Api/obj
+/ADM.Store/ADM.Store.AccessData/obj
+/ADM.Store/ADM.Store.DataBase/obj/Debug
+/ADM.Store/ADM.Store.DataBase/bin/Debug
+/.vs
+/ADM.Store/.vs
+/ADM.Store/ADM.Store.DataBase/ADM.Store.DataBase.dbmdl
+/ADM.Store/ADM.Store.DataBase/ADM.Store.DataBase.jfm
