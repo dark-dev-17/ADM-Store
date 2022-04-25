@@ -12,9 +12,9 @@ namespace ADM.Store.AccessData.Entities
 
         public int Id { get; set; }
         public Guid IdClient { get; set; }
-        public int NoAccount { get; set; }
-        public decimal? Total { get; set; }
-        public decimal? TotalPaid { get; set; }
+        public int TypeAccount { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalPaid { get; set; }
         public string CreatedBy { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

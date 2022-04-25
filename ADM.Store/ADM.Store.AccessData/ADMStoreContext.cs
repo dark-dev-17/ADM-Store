@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ADM.Store.AccessData.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using ADM.Store.AccessData.Entities;
 
 namespace ADM.Store.AccessData
 {
@@ -28,10 +28,8 @@ namespace ADM.Store.AccessData
         {
             if (!optionsBuilder.IsConfigured)
             {
-#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;");
-#pragma warning restore CS1030 // #warning directive
             }
         }
 
@@ -58,6 +56,8 @@ namespace ADM.Store.AccessData
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(10);
 
+                entity.Property(e => e.DateProcess).HasColumnType("date");
+
                 entity.Property(e => e.IdItem).HasMaxLength(50);
 
                 entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
@@ -68,12 +68,12 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.BookAccountDetails)
                     .HasForeignKey(d => d.IdBookAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BookAccou__IdBoo__36B12243");
+                    .HasConstraintName("FK__BookAccou__IdBoo__4D94879B");
 
                 entity.HasOne(d => d.IdItemNavigation)
                     .WithMany(p => p.BookAccountDetails)
                     .HasForeignKey(d => d.IdItem)
-                    .HasConstraintName("FK__BookAccou__IdIte__37A5467C");
+                    .HasConstraintName("FK__BookAccou__IdIte__4CA06362");
             });
 
             modelBuilder.Entity<Category>(entity =>
