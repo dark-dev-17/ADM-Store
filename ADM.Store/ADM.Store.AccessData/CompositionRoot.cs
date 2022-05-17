@@ -13,7 +13,7 @@ namespace ADM.Store.AccessData
         public static IServiceCollection RegisterDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
             // Services
-            services.AddTransient<IBookAccountRepository, BookAccountRepository>();
+            services.AddTransient<ICompraRepository, CompraRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

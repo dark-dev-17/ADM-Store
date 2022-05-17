@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,6 +13,11 @@
   <ItemGroup>
     <ProjectReference Include="..\ADM.Store.AccessData\ADM.Store.AccessData.csproj" />
     <ProjectReference Include="..\ADM.Store.Models\ADM.Store.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ADM.Store.AccessData.Entities
 {
-    public partial class Category
+    internal partial class Category
     {
         public Category()
         {

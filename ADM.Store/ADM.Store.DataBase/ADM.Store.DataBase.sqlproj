@@ -66,5 +66,11 @@
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Tables\ItemMaterial.sql" />
     <Build Include="dbo\Tables\BookAccountDetails.sql" />
+    <Build Include="dbo\Tables\GCuenta.sql" />
+    <Build Include="dbo\Tables\GCompra.sql" />
+    <Build Include="dbo\Tables\GProveedor.sql" />
+    <Build Include="dbo\Tables\GCompraLinea.sql" />
+    <Build Include="dbo\Tables\GCompraLineaEstatus.sql" />
+    <Build Include="dbo\Tables\GCompraEstatus.sql" />
   </ItemGroup>
 </Project>

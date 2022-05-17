@@ -6,7 +6,7 @@ using ADM.Store.AccessData.Entities;
 
 namespace ADM.Store.AccessData
 {
-    public partial class ADMStoreContext : DbContext
+    internal partial class ADMStoreContext : DbContext
     {
         public ADMStoreContext()
         {
@@ -21,6 +21,12 @@ namespace ADM.Store.AccessData
         public virtual DbSet<BookAccountDetail> BookAccountDetails { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Client> Clients { get; set; } = null!;
+        public virtual DbSet<Gcompra> Gcompras { get; set; } = null!;
+        public virtual DbSet<GcompraEstatus> GcompraEstatuses { get; set; } = null!;
+        public virtual DbSet<GcompraLinea> GcompraLineas { get; set; } = null!;
+        public virtual DbSet<GcompraLineaEstatus> GcompraLineaEstatuses { get; set; } = null!;
+        public virtual DbSet<Gcuenta> Gcuentas { get; set; } = null!;
+        public virtual DbSet<Gproveedor> Gproveedors { get; set; } = null!;
         public virtual DbSet<Item> Items { get; set; } = null!;
         public virtual DbSet<ItemMaterial> ItemMaterials { get; set; } = null!;
 
@@ -28,8 +34,10 @@ namespace ADM.Store.AccessData
         {
             if (!optionsBuilder.IsConfigured)
             {
+#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;");
+#pragma warning restore CS1030 // #warning directive
             }
         }
 
@@ -100,6 +108,116 @@ namespace ADM.Store.AccessData
                 entity.Property(e => e.CreatedBy).HasMaxLength(10);
 
                 entity.Property(e => e.PhoneNumber).HasMaxLength(12);
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Gcompra>(entity =>
+            {
+                entity.ToTable("GCompra");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaCompra).HasColumnType("datetime");
+
+                entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.IdCompraEstatusNavigation)
+                    .WithMany(p => p.Gcompras)
+                    .HasForeignKey(d => d.IdCompraEstatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GCompra__IdCompr__6754599E");
+
+                entity.HasOne(d => d.IdProveedorNavigation)
+                    .WithMany(p => p.Gcompras)
+                    .HasForeignKey(d => d.IdProveedor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GCompra__IdProve__66603565");
+            });
+
+            modelBuilder.Entity<GcompraEstatus>(entity =>
+            {
+                entity.ToTable("GCompraEstatus");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Estatus).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<GcompraLinea>(entity =>
+            {
+                entity.ToTable("GCompraLinea");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Descripcion).HasMaxLength(200);
+
+                entity.Property(e => e.FolioNota).HasMaxLength(50);
+
+                entity.Property(e => e.PrecioAproxVenta).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.PrecioCompra).HasColumnType("decimal(10, 2)");
+
+                entity.HasOne(d => d.IdCompraNavigation)
+                    .WithMany(p => p.GcompraLineas)
+                    .HasForeignKey(d => d.IdCompra)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GCompraLi__IdCom__693CA210");
+
+                entity.HasOne(d => d.IdCompraLineaEstatusNavigation)
+                    .WithMany(p => p.GcompraLineas)
+                    .HasForeignKey(d => d.IdCompraLineaEstatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GCompraLi__IdCom__68487DD7");
+            });
+
+            modelBuilder.Entity<GcompraLineaEstatus>(entity =>
+            {
+                entity.ToTable("GCompraLineaEstatus");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Estatus).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Gcuenta>(entity =>
+            {
+                entity.ToTable("GCuenta");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre).HasMaxLength(300);
+            });
+
+            modelBuilder.Entity<Gproveedor>(entity =>
+            {
+                entity.ToTable("GProveedor");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Calle).HasMaxLength(200);
+
+                entity.Property(e => e.Cp)
+                    .HasMaxLength(6)
+                    .HasColumnName("CP");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Estado).HasMaxLength(5);
+
+                entity.Property(e => e.Municipio).HasMaxLength(200);
+
+                entity.Property(e => e.NoExt).HasMaxLength(20);
+
+                entity.Property(e => e.NoInt).HasMaxLength(20);
+
+                entity.Property(e => e.Nombre).HasMaxLength(300);
+
+                entity.Property(e => e.Telefono).HasMaxLength(20);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             });

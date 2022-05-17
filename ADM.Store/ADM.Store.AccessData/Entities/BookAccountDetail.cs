@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ADM.Store.AccessData.Entities
 {
-    public partial class BookAccountDetail
+    internal partial class BookAccountDetail
     {
         public int Id { get; set; }
         public int IdBookAccount { get; set; }

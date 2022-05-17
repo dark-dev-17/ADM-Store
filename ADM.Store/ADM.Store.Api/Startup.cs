@@ -19,6 +19,15 @@ namespace ADM.Store.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "_myAllowSpecificOrigins",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://example.com",
+                                                          "http://localhost:3000","*").AllowAnyOrigin().AllowAnyHeader();
+                                  });
+            });
             services
                 .RegisterServices()
                 .RegisterDataAccess(Configuration)
@@ -49,7 +58,7 @@ namespace ADM.Store.Api
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCors("_myAllowSpecificOrigins");
             app.UseRouting();
 
             app.UseAuthorization();
