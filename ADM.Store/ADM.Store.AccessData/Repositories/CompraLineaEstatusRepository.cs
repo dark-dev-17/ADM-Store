@@ -6,20 +6,20 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("ADM.Store.Service")]
 namespace ADM.Store.AccessData.Repositories
 {
-    internal class CompraEstatusRepository : ICompraEstatusRepository
+    internal class CompraLineaEstatusRepository : ICompraLineaEstatusRepository
     {
         private readonly ADMStoreContext _aDMStore;
 
-        public CompraEstatusRepository(ADMStoreContext aDMStore)
+        public  CompraLineaEstatusRepository(ADMStoreContext aDMStore)
         {
             _aDMStore = aDMStore;
         }
 
-        public async Task<CompraEstatusDetailsModel?> BuscarEstatusByNameAsync(string nombre)
+        public async Task<CompraLineaEstatusDetailsModel?> BuscarEstatusByNameAsync(string nombre)
         {
             var estusQuery = from estatus in _aDMStore.GcompraEstatuses
                              where estatus.Estatus.Trim().ToLower() == nombre.Trim().ToLower()
-                             select new CompraEstatusDetailsModel
+                             select new CompraLineaEstatusDetailsModel
                              {
                                  Estatus = estatus.Estatus,
                                  Id = estatus.Id
@@ -28,10 +28,10 @@ namespace ADM.Store.AccessData.Repositories
             return await estusQuery.FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
-        public async Task<List<CompraEstatusDetailsModel>> ListAsync()
+        public async Task<List<CompraLineaEstatusDetailsModel>> ListAsync()
         {
             var estusQuery = from estatus in _aDMStore.GcompraEstatuses
-                             select new CompraEstatusDetailsModel
+                             select new CompraLineaEstatusDetailsModel
                              {
                                  Estatus = estatus.Estatus,
                                  Id = estatus.Id
