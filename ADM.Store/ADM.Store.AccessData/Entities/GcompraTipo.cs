@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace ADM.Store.AccessData.Entities
 {
-    public partial class GcompraLineaEstatus
+    public partial class GcompraTipo
     {
-        public GcompraLineaEstatus()
+        public GcompraTipo()
         {
-            GcompraLineas = new HashSet<GcompraLinea>();
+            Gcompras = new HashSet<Gcompra>();
         }
 
         public Guid Id { get; set; }
         public string Estatus { get; set; } = null!;
 
-        public virtual ICollection<GcompraLinea> GcompraLineas { get; set; }
+        public virtual ICollection<Gcompra> Gcompras { get; set; }
     }
 }

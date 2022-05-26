@@ -72,5 +72,6 @@
     <Build Include="dbo\Tables\GCompraLinea.sql" />
     <Build Include="dbo\Tables\GCompraLineaEstatus.sql" />
     <Build Include="dbo\Tables\GCompraEstatus.sql" />
+    <Build Include="dbo\Tables\GCompraTipo.sql" />
   </ItemGroup>
 </Project>

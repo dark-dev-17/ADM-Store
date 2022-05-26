@@ -5,12 +5,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("ADM.Store.AccessData")]
-[assembly: InternalsVisibleTo("ADM.Store.Service")]
-[assembly: InternalsVisibleTo("ADM.Store.Api")]
 namespace ADM.Store.Models.Models.Proveedor
 {
-    internal class ProveedorUpdateModel
+    public class ProveedorUpdateModel
     {
         public Guid Id { get; set; }
         public string Nombre { get; set; } = null!;

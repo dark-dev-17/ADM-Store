@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADM.Store.Models.Models.Compra
 {
-    internal class CompraLineaCreateModel
+    public class CompraLineaCreateModel
     {
         public Guid IdCompra { get; set; }
         public string Descripcion { get; set; } = null!;

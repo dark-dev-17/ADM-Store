@@ -18,7 +18,7 @@ namespace ADM.Store.AccessData.Interfaces
         /// <param name="newCompra"></param>
         /// <param name="Status"></param>
         /// <returns></returns>
-        public Task<Guid?> RegistrarAsync(CompraCreateModel newCompra, Guid Status);
+        public Task<Guid> RegistrarAsync(CompraCreateModel newCompra, Guid Status);
         /// <summary>
         /// Obtener detalles generales de la compra solicitada
         /// </summary>
@@ -50,7 +50,7 @@ namespace ADM.Store.AccessData.Interfaces
         /// <param name="idCompra">Id de la compra</param>
         /// <param name="cantidad">cantidad a sumar o restar</param>
         /// <returns></returns>
-        public Task<bool> UpdateTotal(Guid idCompra, decimal cantidad);
+        public Task<bool> UpdateTotal(Guid idCompra);
         /// <summary>
         /// agregar nueva linea a compra
         /// </summary>

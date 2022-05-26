@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("ADM.Store.AccessData")]
-[assembly: InternalsVisibleTo("ADM.Store.Service")]
-[assembly: InternalsVisibleTo("ADM.Store.Api")]
 namespace ADM.Store.Models.Models.Proveedor
 {
-    internal class ProveedorCreateModel
+    public class ProveedorCreateModel
     {
         public string Nombre { get; set; } = null!;
         public string Telefono { get; set; } = null!;

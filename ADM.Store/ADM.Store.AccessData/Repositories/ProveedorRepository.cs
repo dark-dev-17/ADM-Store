@@ -49,6 +49,16 @@ namespace ADM.Store.AccessData.Repositories
             return await proveedorQuery.FirstOrDefaultAsync(proveedor => proveedor.Id == id).ConfigureAwait(false);
         }
 
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            return await _aDMStore.Gproveedors.AnyAsync(proveedor => proveedor.Id == id).ConfigureAwait(false);
+        }
+
         public async Task<List<ProveedorDetailsModel>> List()
         {
             var proveedoresQuery = from proveedor in _aDMStore.Gproveedors

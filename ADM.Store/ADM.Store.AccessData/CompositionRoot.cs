@@ -14,6 +14,11 @@ namespace ADM.Store.AccessData
         {
             // Services
             services.AddTransient<ICompraRepository, CompraRepository>();
+            services.AddTransient<ICompraTipoRepository, CompraTipoRepository>();
+            services.AddTransient<ICompraEstatusRepository, CompraEstatusRepository>();
+            services.AddTransient<ICompraLineaEstatusRepository, CompraLineaEstatusRepository>();
+            services.AddTransient<IProveedorRepository, ProveedorRepository>();
+            services.AddTransient<ICuentaRepository, CuentaRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

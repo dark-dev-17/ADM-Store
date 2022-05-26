@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ADM.Store.AccessData.Entities
 {
-    internal partial class GcompraLinea
+    public partial class GcompraLinea
     {
         public Guid Id { get; set; }
         public Guid IdCompra { get; set; }

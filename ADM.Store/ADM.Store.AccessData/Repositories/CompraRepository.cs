@@ -17,9 +17,29 @@ namespace ADM.Store.AccessData.Repositories
             _aDMStore = aDMStore;
         }
 
-        public Task<Guid?> AddCompraLinea(CompraLineaCreateModel compraLineaCreate, Guid EstatusLinea)
+        public async Task<Guid?> AddCompraLinea(CompraLineaCreateModel compraLineaCreate, Guid EstatusLinea)
         {
-            throw new NotImplementedException();
+            if (EstatusLinea == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(EstatusLinea));
+            }
+
+            var nuevaCompra = new GcompraLinea
+            {
+                Id = Guid.NewGuid(),
+                IdCompra = compraLineaCreate.IdCompra,
+                Comentarios = compraLineaCreate.Comentarios,
+                FolioNota = compraLineaCreate.FolioNota,
+                PrecioAproxVenta = compraLineaCreate.PrecioAproxVenta,
+                PrecioCompra = compraLineaCreate.PrecioCompra,
+                Descripcion = compraLineaCreate.Descripcion,
+                IdCompraLineaEstatus = EstatusLinea
+            };
+
+            await _aDMStore.GcompraLineas.AddAsync(nuevaCompra).ConfigureAwait(false);
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+
+            return nuevaCompra.Id;
         }
 
         public async Task<CompraDetailsModel?> DetailsAsync(Guid idCompra)
@@ -30,7 +50,7 @@ namespace ADM.Store.AccessData.Repositories
             }
 
             var comprasQuery = from compra in _aDMStore.Gcompras
-                               join estatus in _aDMStore.GcompraLineaEstatuses on compra.IdCompraEstatus equals estatus.Id
+                               join estatus in _aDMStore.GcompraEstatuses on compra.IdCompraEstatus equals estatus.Id
                                join proveedor in _aDMStore.Gproveedors on compra.IdProveedor equals proveedor.Id
                                where compra.Id == idCompra
                                select new CompraDetailsModel
@@ -87,7 +107,7 @@ namespace ADM.Store.AccessData.Repositories
         public async Task<List<CompraDetailsModel>> ListAsync()
         {
             var comprasQuery = from compra in _aDMStore.Gcompras
-                               join estatus in _aDMStore.GcompraLineaEstatuses on compra.IdCompraEstatus equals estatus.Id
+                               join estatus in _aDMStore.GcompraEstatuses on compra.IdCompraEstatus equals estatus.Id
                                join proveedor in _aDMStore.Gproveedors on compra.IdProveedor equals proveedor.Id
                                orderby compra.FechaCompra descending 
                                select new CompraDetailsModel
@@ -162,7 +182,7 @@ namespace ADM.Store.AccessData.Repositories
             return true;
         }
 
-        public async Task<Guid?> RegistrarAsync(CompraCreateModel newCompra, Guid Status)
+        public async Task<Guid> RegistrarAsync(CompraCreateModel newCompra, Guid Status)
         {
             if (Status == Guid.Empty)
             {
@@ -248,7 +268,7 @@ namespace ADM.Store.AccessData.Repositories
             return true;
         }
 
-        public async Task<bool> UpdateTotal(Guid idCompra, decimal cantidad)
+        public async Task<bool> UpdateTotal(Guid idCompra)
         {
             var compra = await _aDMStore.Gcompras.FirstOrDefaultAsync(compra => compra.Id == idCompra).ConfigureAwait(false);
 
@@ -257,7 +277,10 @@ namespace ADM.Store.AccessData.Repositories
                 return false;
             }
 
-            compra.Total = compra.Total + cantidad;
+            var totalItems = await _aDMStore.GcompraLineas.Where(item => item.IdCompra == idCompra).Select(item => item.PrecioCompra).SumAsync().ConfigureAwait(false);
+
+
+            compra.Total = totalItems;
             compra.UpdatedAt = DateTime.UtcNow;
 
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);

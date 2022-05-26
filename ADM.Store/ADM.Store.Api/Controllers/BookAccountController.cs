@@ -15,5 +15,16 @@ namespace ADM.Store.Api.Controllers
         {
             _logger = logger;
         }
+
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+            List<string> Saludos = new List<string>();
+            for (int perro = 1; perro <= 10; perro++)
+            {
+                Saludos.Add($"Hola perro no.{perro}");
             }
+            return Ok(Saludos);
+        }
+    }
 }

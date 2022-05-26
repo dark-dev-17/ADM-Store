@@ -1,12 +1,9 @@
 ﻿using ADM.Store.Models.Models.Proveedor;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("ADM.Store.AccessData")]
-[assembly: InternalsVisibleTo("ADM.Store.Service")]
-[assembly: InternalsVisibleTo("ADM.Store.Api")]
 namespace ADM.Store.Models.Models.Compra
 {
-    internal class CompraDetailsModel
+    public class CompraDetailsModel
     {
         public Guid Id { get; set; }
         public DateTime FechaCompra { get; set; }

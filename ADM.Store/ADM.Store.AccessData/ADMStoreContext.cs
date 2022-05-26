@@ -25,6 +25,7 @@ namespace ADM.Store.AccessData
         public virtual DbSet<GcompraEstatus> GcompraEstatuses { get; set; } = null!;
         public virtual DbSet<GcompraLinea> GcompraLineas { get; set; } = null!;
         public virtual DbSet<GcompraLineaEstatus> GcompraLineaEstatuses { get; set; } = null!;
+        public virtual DbSet<GcompraTipo> GcompraTipos { get; set; } = null!;
         public virtual DbSet<Gcuenta> Gcuentas { get; set; } = null!;
         public virtual DbSet<Gproveedor> Gproveedors { get; set; } = null!;
         public virtual DbSet<Item> Items { get; set; } = null!;
@@ -34,10 +35,8 @@ namespace ADM.Store.AccessData
         {
             if (!optionsBuilder.IsConfigured)
             {
-#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;");
-#pragma warning restore CS1030 // #warning directive
             }
         }
 
@@ -76,12 +75,12 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.BookAccountDetails)
                     .HasForeignKey(d => d.IdBookAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BookAccou__IdBoo__4D94879B");
+                    .HasConstraintName("FK__BookAccou__IdBoo__3B75D760");
 
                 entity.HasOne(d => d.IdItemNavigation)
                     .WithMany(p => p.BookAccountDetails)
                     .HasForeignKey(d => d.IdItem)
-                    .HasConstraintName("FK__BookAccou__IdIte__4CA06362");
+                    .HasConstraintName("FK__BookAccou__IdIte__3C69FB99");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -130,13 +129,19 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.Gcompras)
                     .HasForeignKey(d => d.IdCompraEstatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompra__IdCompr__6754599E");
+                    .HasConstraintName("FK__GCompra__IdCompr__3F466844");
+
+                entity.HasOne(d => d.IdCompraTipoNavigation)
+                    .WithMany(p => p.Gcompras)
+                    .HasForeignKey(d => d.IdCompraTipo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GCompra__IdCompr__3E52440B");
 
                 entity.HasOne(d => d.IdProveedorNavigation)
                     .WithMany(p => p.Gcompras)
                     .HasForeignKey(d => d.IdProveedor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompra__IdProve__66603565");
+                    .HasConstraintName("FK__GCompra__IdProve__3D5E1FD2");
             });
 
             modelBuilder.Entity<GcompraEstatus>(entity =>
@@ -166,13 +171,13 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.GcompraLineas)
                     .HasForeignKey(d => d.IdCompra)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompraLi__IdCom__693CA210");
+                    .HasConstraintName("FK__GCompraLi__IdCom__412EB0B6");
 
                 entity.HasOne(d => d.IdCompraLineaEstatusNavigation)
                     .WithMany(p => p.GcompraLineas)
                     .HasForeignKey(d => d.IdCompraLineaEstatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompraLi__IdCom__68487DD7");
+                    .HasConstraintName("FK__GCompraLi__IdCom__403A8C7D");
             });
 
             modelBuilder.Entity<GcompraLineaEstatus>(entity =>
@@ -182,6 +187,15 @@ namespace ADM.Store.AccessData
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Estatus).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<GcompraTipo>(entity =>
+            {
+                entity.ToTable("GCompraTipo");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Estatus).HasMaxLength(200);
             });
 
             modelBuilder.Entity<Gcuenta>(entity =>
@@ -240,19 +254,19 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemIdCategoryNavigations)
                     .HasForeignKey(d => d.IdCategory)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdCategory__2F10007B");
+                    .HasConstraintName("FK__Item__IdCategory__4222D4EF");
 
                 entity.HasOne(d => d.IdMaterialNavigation)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.IdMaterial)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdMaterial__30F848ED");
+                    .HasConstraintName("FK__Item__IdMaterial__440B1D61");
 
                 entity.HasOne(d => d.IdSubCategoryNavigation)
                     .WithMany(p => p.ItemIdSubCategoryNavigations)
                     .HasForeignKey(d => d.IdSubCategory)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdSubCateg__300424B4");
+                    .HasConstraintName("FK__Item__IdSubCateg__4316F928");
             });
 
             modelBuilder.Entity<ItemMaterial>(entity =>

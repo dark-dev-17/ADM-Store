@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ADM.Store.AccessData.Entities
 {
-    internal partial class Client
+    public partial class Client
     {
         public Guid Id { get; set; }
         public string ClientName { get; set; } = null!;

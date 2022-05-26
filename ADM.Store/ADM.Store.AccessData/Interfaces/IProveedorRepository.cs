@@ -35,5 +35,11 @@ namespace ADM.Store.AccessData.Interfaces
         /// </summary>
         /// <returns></returns>
         public Task<List<ProveedorDetailsModel>> List();
+        /// <summary>
+        /// Validar si existe un proveedor por idProveedor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<bool> ExistsAsync(Guid id);
     }
 }
