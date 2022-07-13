@@ -6,7 +6,7 @@ using ADM.Store.AccessData.Entities;
 
 namespace ADM.Store.AccessData
 {
-    internal partial class ADMStoreContext : DbContext
+    public partial class ADMStoreContext : DbContext
     {
         public ADMStoreContext()
         {
@@ -17,265 +17,182 @@ namespace ADM.Store.AccessData
         {
         }
 
-        public virtual DbSet<BookAccount> BookAccounts { get; set; } = null!;
-        public virtual DbSet<BookAccountDetail> BookAccountDetails { get; set; } = null!;
-        public virtual DbSet<Category> Categories { get; set; } = null!;
-        public virtual DbSet<Client> Clients { get; set; } = null!;
-        public virtual DbSet<Gcompra> Gcompras { get; set; } = null!;
-        public virtual DbSet<GcompraEstatus> GcompraEstatuses { get; set; } = null!;
-        public virtual DbSet<GcompraLinea> GcompraLineas { get; set; } = null!;
-        public virtual DbSet<GcompraLineaEstatus> GcompraLineaEstatuses { get; set; } = null!;
-        public virtual DbSet<GcompraTipo> GcompraTipos { get; set; } = null!;
-        public virtual DbSet<Gcuenta> Gcuentas { get; set; } = null!;
-        public virtual DbSet<Gproveedor> Gproveedors { get; set; } = null!;
         public virtual DbSet<Item> Items { get; set; } = null!;
-        public virtual DbSet<ItemMaterial> ItemMaterials { get; set; } = null!;
+        public virtual DbSet<ItemCategoryCat> ItemCategoryCats { get; set; } = null!;
+        public virtual DbSet<ItemMaterialCat> ItemMaterialCats { get; set; } = null!;
+        public virtual DbSet<ItemOption> ItemOptions { get; set; } = null!;
+        public virtual DbSet<ItemStatus> ItemStatuses { get; set; } = null!;
+        public virtual DbSet<ItemTag> ItemTags { get; set; } = null!;
+        public virtual DbSet<ItemTagsCat> ItemTagsCats { get; set; } = null!;
+        public virtual DbSet<ItemThemeCat> ItemThemeCats { get; set; } = null!;
+        public virtual DbSet<ItemTypeCat> ItemTypeCats { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=admstore;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BookAccount>(entity =>
-            {
-                entity.ToTable("BookAccount");
-
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(10);
-
-                entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.TotalPaid).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<BookAccountDetail>(entity =>
-            {
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(10);
-
-                entity.Property(e => e.DateProcess).HasColumnType("date");
-
-                entity.Property(e => e.IdItem).HasMaxLength(50);
-
-                entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdBookAccountNavigation)
-                    .WithMany(p => p.BookAccountDetails)
-                    .HasForeignKey(d => d.IdBookAccount)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BookAccou__IdBoo__3B75D760");
-
-                entity.HasOne(d => d.IdItemNavigation)
-                    .WithMany(p => p.BookAccountDetails)
-                    .HasForeignKey(d => d.IdItem)
-                    .HasConstraintName("FK__BookAccou__IdIte__3C69FB99");
-            });
-
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.ToTable("Category");
-
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(10);
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.ToTable("Client");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.ClientName).HasMaxLength(200);
-
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(10);
-
-                entity.Property(e => e.PhoneNumber).HasMaxLength(12);
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<Gcompra>(entity =>
-            {
-                entity.ToTable("GCompra");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.FechaCompra).HasColumnType("datetime");
-
-                entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdCompraEstatusNavigation)
-                    .WithMany(p => p.Gcompras)
-                    .HasForeignKey(d => d.IdCompraEstatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompra__IdCompr__3F466844");
-
-                entity.HasOne(d => d.IdCompraTipoNavigation)
-                    .WithMany(p => p.Gcompras)
-                    .HasForeignKey(d => d.IdCompraTipo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompra__IdCompr__3E52440B");
-
-                entity.HasOne(d => d.IdProveedorNavigation)
-                    .WithMany(p => p.Gcompras)
-                    .HasForeignKey(d => d.IdProveedor)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompra__IdProve__3D5E1FD2");
-            });
-
-            modelBuilder.Entity<GcompraEstatus>(entity =>
-            {
-                entity.ToTable("GCompraEstatus");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Estatus).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<GcompraLinea>(entity =>
-            {
-                entity.ToTable("GCompraLinea");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Descripcion).HasMaxLength(200);
-
-                entity.Property(e => e.FolioNota).HasMaxLength(50);
-
-                entity.Property(e => e.PrecioAproxVenta).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.PrecioCompra).HasColumnType("decimal(10, 2)");
-
-                entity.HasOne(d => d.IdCompraNavigation)
-                    .WithMany(p => p.GcompraLineas)
-                    .HasForeignKey(d => d.IdCompra)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompraLi__IdCom__412EB0B6");
-
-                entity.HasOne(d => d.IdCompraLineaEstatusNavigation)
-                    .WithMany(p => p.GcompraLineas)
-                    .HasForeignKey(d => d.IdCompraLineaEstatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GCompraLi__IdCom__403A8C7D");
-            });
-
-            modelBuilder.Entity<GcompraLineaEstatus>(entity =>
-            {
-                entity.ToTable("GCompraLineaEstatus");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Estatus).HasMaxLength(100);
-            });
-
-            modelBuilder.Entity<GcompraTipo>(entity =>
-            {
-                entity.ToTable("GCompraTipo");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Estatus).HasMaxLength(200);
-            });
-
-            modelBuilder.Entity<Gcuenta>(entity =>
-            {
-                entity.ToTable("GCuenta");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Nombre).HasMaxLength(300);
-            });
-
-            modelBuilder.Entity<Gproveedor>(entity =>
-            {
-                entity.ToTable("GProveedor");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Calle).HasMaxLength(200);
-
-                entity.Property(e => e.Cp)
-                    .HasMaxLength(6)
-                    .HasColumnName("CP");
-
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-
-                entity.Property(e => e.Estado).HasMaxLength(5);
-
-                entity.Property(e => e.Municipio).HasMaxLength(200);
-
-                entity.Property(e => e.NoExt).HasMaxLength(20);
-
-                entity.Property(e => e.NoInt).HasMaxLength(20);
-
-                entity.Property(e => e.Nombre).HasMaxLength(300);
-
-                entity.Property(e => e.Telefono).HasMaxLength(20);
-
-                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            });
-
             modelBuilder.Entity<Item>(entity =>
             {
+                entity.HasKey(e => e.ItemCode)
+                    .HasName("PK__Item__3ECC0FEBE991419D");
+
                 entity.ToTable("Item");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
+                entity.Property(e => e.ItemCode).HasMaxLength(50);
+
+                entity.Property(e => e.ColorCode).HasMaxLength(100);
+
+                entity.Property(e => e.ColorName).HasMaxLength(100);
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
-                entity.Property(e => e.CreatedBy).HasMaxLength(10);
+                entity.Property(e => e.CreatedBy).HasMaxLength(200);
+
+                entity.Property(e => e.ItemDescription).HasColumnType("text");
+
+                entity.Property(e => e.Size).HasMaxLength(10);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
-                entity.HasOne(d => d.IdCategoryNavigation)
-                    .WithMany(p => p.ItemIdCategoryNavigations)
-                    .HasForeignKey(d => d.IdCategory)
+                entity.HasOne(d => d.CategoryNavigation)
+                    .WithMany(p => p.ItemCategoryNavigations)
+                    .HasForeignKey(d => d.Category)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdCategory__4222D4EF");
+                    .HasConstraintName("FK__Item__Category__36B12243");
 
-                entity.HasOne(d => d.IdMaterialNavigation)
+                entity.HasOne(d => d.ItemStatusNavigation)
                     .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.IdMaterial)
+                    .HasForeignKey(d => d.ItemStatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdMaterial__440B1D61");
+                    .HasConstraintName("FK__Item__ItemStatus__33D4B598");
 
-                entity.HasOne(d => d.IdSubCategoryNavigation)
-                    .WithMany(p => p.ItemIdSubCategoryNavigations)
-                    .HasForeignKey(d => d.IdSubCategory)
+                entity.HasOne(d => d.ItemTypeNavigation)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__IdSubCateg__4316F928");
+                    .HasConstraintName("FK__Item__ItemType__34C8D9D1");
+
+                entity.HasOne(d => d.MaterialNavigation)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.Material)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Item__Material__35BCFE0A");
+
+                entity.HasOne(d => d.SubCategoryNavigation)
+                    .WithMany(p => p.ItemSubCategoryNavigations)
+                    .HasForeignKey(d => d.SubCategory)
+                    .HasConstraintName("FK__Item__SubCategor__37A5467C");
             });
 
-            modelBuilder.Entity<ItemMaterial>(entity =>
+            modelBuilder.Entity<ItemCategoryCat>(entity =>
             {
-                entity.ToTable("ItemMaterial");
+                entity.ToTable("ItemCategoryCat");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.CategoryName).HasMaxLength(150);
 
-                entity.Property(e => e.Description).HasMaxLength(200);
+                entity.HasOne(d => d.ItemTypeNavigation)
+                    .WithMany(p => p.ItemCategoryCats)
+                    .HasForeignKey(d => d.ItemType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ItemCateg__ItemT__38996AB5");
+            });
+
+            modelBuilder.Entity<ItemMaterialCat>(entity =>
+            {
+                entity.ToTable("ItemMaterialCat");
+
+                entity.Property(e => e.MaterialName).HasMaxLength(150);
+
+                entity.HasOne(d => d.ItemTypeNavigation)
+                    .WithMany(p => p.ItemMaterialCats)
+                    .HasForeignKey(d => d.ItemType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ItemMater__ItemT__3A81B327");
+            });
+
+            modelBuilder.Entity<ItemOption>(entity =>
+            {
+                entity.ToTable("ItemOption");
+
+                entity.Property(e => e.ColorCode).HasMaxLength(100);
+
+                entity.Property(e => e.ColorName).HasMaxLength(100);
+
+                entity.Property(e => e.ItemCode).HasMaxLength(50);
+
+                entity.Property(e => e.ItemDescription).HasColumnType("text");
+
+                entity.Property(e => e.Size).HasMaxLength(10);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.Variation).HasMaxLength(3);
+
+                entity.HasOne(d => d.ItemCodeNavigation)
+                    .WithMany(p => p.ItemOptions)
+                    .HasForeignKey(d => d.ItemCode)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ItemOptio__ItemC__3B75D760");
+            });
+
+            modelBuilder.Entity<ItemStatus>(entity =>
+            {
+                entity.ToTable("ItemStatus");
+
+                entity.Property(e => e.StatusName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ItemTag>(entity =>
+            {
+                entity.HasKey(e => new { e.ItemCode, e.ItemTag1 })
+                    .HasName("PK__ItemTag__AC8020E3E914CFD6");
+
+                entity.ToTable("ItemTag");
+
+                entity.Property(e => e.ItemCode).HasMaxLength(50);
+
+                entity.Property(e => e.ItemTag1).HasColumnName("ItemTag");
+            });
+
+            modelBuilder.Entity<ItemTagsCat>(entity =>
+            {
+                entity.ToTable("ItemTagsCat");
+
+                entity.Property(e => e.TagName).HasMaxLength(200);
+
+                entity.HasOne(d => d.ItemTypeNavigation)
+                    .WithMany(p => p.ItemTagsCats)
+                    .HasForeignKey(d => d.ItemType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ItemTagsC__ItemT__3C69FB99");
+            });
+
+            modelBuilder.Entity<ItemThemeCat>(entity =>
+            {
+                entity.ToTable("ItemThemeCat");
+
+                entity.Property(e => e.ThemeName).HasMaxLength(50);
+
+                entity.HasOne(d => d.ItemTypeNavigation)
+                    .WithMany(p => p.ItemThemeCats)
+                    .HasForeignKey(d => d.ItemType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ItemTheme__ItemT__3D5E1FD2");
+            });
+
+            modelBuilder.Entity<ItemTypeCat>(entity =>
+            {
+                entity.ToTable("ItemTypeCat");
+
+                entity.Property(e => e.TypeName).HasMaxLength(150);
             });
 
             OnModelCreatingPartial(modelBuilder);

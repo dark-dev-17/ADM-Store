@@ -58,20 +58,20 @@
     <Folder Include="Properties" />
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="PostDeploy" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Client.sql" />
-    <Build Include="dbo\Tables\BookAccount.sql" />
     <Build Include="dbo\Tables\Item.sql" />
-    <Build Include="dbo\Tables\Category.sql" />
-    <Build Include="dbo\Tables\ItemMaterial.sql" />
-    <Build Include="dbo\Tables\BookAccountDetails.sql" />
-    <Build Include="dbo\Tables\GCuenta.sql" />
-    <Build Include="dbo\Tables\GCompra.sql" />
-    <Build Include="dbo\Tables\GProveedor.sql" />
-    <Build Include="dbo\Tables\GCompraLinea.sql" />
-    <Build Include="dbo\Tables\GCompraLineaEstatus.sql" />
-    <Build Include="dbo\Tables\GCompraEstatus.sql" />
-    <Build Include="dbo\Tables\GCompraTipo.sql" />
+    <Build Include="dbo\Tables\ItemStatus.sql" />
+    <Build Include="dbo\Tables\ItemThemeCat.sql" />
+    <Build Include="dbo\Tables\ItemTypeCat.sql" />
+    <Build Include="dbo\Tables\ItemTagsCat.sql" />
+    <Build Include="dbo\Tables\ItemTag.sql" />
+    <Build Include="dbo\Tables\ItemMaterialCat.sql" />
+    <Build Include="dbo\Tables\ItemOption.sql" />
+    <Build Include="dbo\Tables\ItemCategoryCat.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploy\ItemCatalogs.sql" />
   </ItemGroup>
 </Project>
