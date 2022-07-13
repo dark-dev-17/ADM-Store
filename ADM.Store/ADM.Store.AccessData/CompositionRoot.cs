@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ADM.Store.AccessData.Interfaces;
+using ADM.Store.AccessData.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
@@ -11,7 +13,12 @@ namespace ADM.Store.AccessData
         public static IServiceCollection RegisterDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
             // Services
-            //services.AddTransient<IDocumentRequestRepository, DocumentRequestRepository>();
+            services.AddTransient<ICompraRepository, CompraRepository>();
+            services.AddTransient<ICompraTipoRepository, CompraTipoRepository>();
+            services.AddTransient<ICompraEstatusRepository, CompraEstatusRepository>();
+            services.AddTransient<ICompraLineaEstatusRepository, CompraLineaEstatusRepository>();
+            services.AddTransient<IProveedorRepository, ProveedorRepository>();
+            services.AddTransient<ICuentaRepository, CuentaRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

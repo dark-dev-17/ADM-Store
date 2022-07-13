@@ -22,12 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\ADM.Store.Models\ADM.Store.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ADM.Store.Models\ADM.Store.Models.csproj" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

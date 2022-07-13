@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ADM.Store.AccessData\ADM.Store.AccessData.csproj" />
+    <ProjectReference Include="..\ADM.Store.Models\ADM.Store.Models.csproj" />
+  </ItemGroup>
+
 </Project>
