@@ -59,6 +59,7 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
     <Folder Include="PostDeploy" />
+    <Folder Include="PreDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Item.sql" />
@@ -70,8 +71,25 @@
     <Build Include="dbo\Tables\ItemMaterialCat.sql" />
     <Build Include="dbo\Tables\ItemOption.sql" />
     <Build Include="dbo\Tables\ItemCategoryCat.sql" />
+    <Build Include="dbo\Tables\Supplier.sql" />
+    <Build Include="dbo\Tables\SupplierStatusCat.sql" />
+    <Build Include="dbo\Tables\SupplierContact.sql" />
+    <Build Include="dbo\Tables\SupplierLocation.sql" />
+    <Build Include="dbo\Tables\PurchaseOrder.sql" />
+    <Build Include="dbo\Tables\PurchaseOrderItem.sql" />
+    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\SalesOrder.sql" />
+    <Build Include="dbo\Tables\SalesOrderType.sql" />
+    <Build Include="dbo\Tables\SalesOrderItem.sql" />
+    <Build Include="dbo\Tables\BussinesAccount.sql" />
+    <Build Include="dbo\Tables\BussinesAccountHistory.sql" />
+    <Build Include="dbo\Tables\IncommingPayment.sql" />
+    <Build Include="dbo\Tables\OutgoingPayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploy\ItemCatalogs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="PreDeployment\ClearCatalogs.sql" />
   </ItemGroup>
 </Project>
