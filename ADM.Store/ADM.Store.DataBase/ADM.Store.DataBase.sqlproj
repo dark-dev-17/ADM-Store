@@ -58,20 +58,38 @@
     <Folder Include="Properties" />
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="PostDeploy" />
+    <Folder Include="PreDeployment" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Client.sql" />
-    <Build Include="dbo\Tables\BookAccount.sql" />
     <Build Include="dbo\Tables\Item.sql" />
-    <Build Include="dbo\Tables\Category.sql" />
-    <Build Include="dbo\Tables\ItemMaterial.sql" />
-    <Build Include="dbo\Tables\BookAccountDetails.sql" />
-    <Build Include="dbo\Tables\GCuenta.sql" />
-    <Build Include="dbo\Tables\GCompra.sql" />
-    <Build Include="dbo\Tables\GProveedor.sql" />
-    <Build Include="dbo\Tables\GCompraLinea.sql" />
-    <Build Include="dbo\Tables\GCompraLineaEstatus.sql" />
-    <Build Include="dbo\Tables\GCompraEstatus.sql" />
-    <Build Include="dbo\Tables\GCompraTipo.sql" />
+    <Build Include="dbo\Tables\ItemStatus.sql" />
+    <Build Include="dbo\Tables\ItemThemeCat.sql" />
+    <Build Include="dbo\Tables\ItemTypeCat.sql" />
+    <Build Include="dbo\Tables\ItemTagsCat.sql" />
+    <Build Include="dbo\Tables\ItemTag.sql" />
+    <Build Include="dbo\Tables\ItemMaterialCat.sql" />
+    <Build Include="dbo\Tables\ItemOption.sql" />
+    <Build Include="dbo\Tables\ItemCategoryCat.sql" />
+    <Build Include="dbo\Tables\Supplier.sql" />
+    <Build Include="dbo\Tables\SupplierStatusCat.sql" />
+    <Build Include="dbo\Tables\SupplierContact.sql" />
+    <Build Include="dbo\Tables\SupplierLocation.sql" />
+    <Build Include="dbo\Tables\PurchaseOrder.sql" />
+    <Build Include="dbo\Tables\PurchaseOrderItem.sql" />
+    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\SalesOrder.sql" />
+    <Build Include="dbo\Tables\SalesOrderType.sql" />
+    <Build Include="dbo\Tables\SalesOrderItem.sql" />
+    <Build Include="dbo\Tables\BussinesAccount.sql" />
+    <Build Include="dbo\Tables\BussinesAccountHistory.sql" />
+    <Build Include="dbo\Tables\IncommingPayment.sql" />
+    <Build Include="dbo\Tables\OutgoingPayment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploy\ItemCatalogs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="PreDeployment\ClearCatalogs.sql" />
   </ItemGroup>
 </Project>

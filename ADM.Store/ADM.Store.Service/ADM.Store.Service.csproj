@@ -15,4 +15,10 @@
     <ProjectReference Include="..\ADM.Store.Models\ADM.Store.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
