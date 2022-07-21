@@ -1,5 +1,7 @@
 ﻿using ADM.Store.Models.Models.ItemMaterial;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ADM.Store.Service")]
 namespace ADM.Store.AccessData.Interfaces
 {
     internal interface IItemMaterialRepository

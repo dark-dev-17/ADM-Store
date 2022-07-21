@@ -1,5 +1,6 @@
 ﻿using ADM.Store.AccessData.Interfaces;
 using ADM.Store.AccessData.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
@@ -21,8 +22,8 @@ namespace ADM.Store.AccessData
             services.AddTransient<IItemOptionRespository, ItemOptionRespository>();
             services.AddTransient<IItemRepository, ItemRepository>();
 
-            //services.AddDbContext<ADMStoreContext>(options =>
-            //    options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));
+            services.AddDbContext<ADMStoreContext>(options =>
+                options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));
             return services;
         }
     }

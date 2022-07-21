@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ADM.Store.Service.Exceptions
+﻿namespace ADM.Store.Service.Exceptions
 {
-    public class ExistsException: Exception
+    public class ExceptionService: Exception
     {
-        public ExistsException() { }
+        public int ErrorCode { get; private set; }
+        public string LevelError { get; private set; }
+        public string ErrorMessage { get; private set; }
 
-        public ExistsException(string message): base(message) { }
+        public ExceptionService(int errorCode, string levelError, string message): base(message) 
+        { 
+            this.ErrorCode = errorCode;
+            this.LevelError = levelError;
+            this.ErrorMessage = message;
+        }
     }
 }

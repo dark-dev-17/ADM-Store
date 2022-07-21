@@ -2,7 +2,10 @@
 using ADM.Store.AccessData.Interfaces;
 using ADM.Store.Models.Models.ItemCategory;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
+
+[assembly: InternalsVisibleTo("ADM.Store.Service")]
 namespace ADM.Store.AccessData.Repositories
 {
     internal class ItemCategoryRepository : IItemCategoryRepository

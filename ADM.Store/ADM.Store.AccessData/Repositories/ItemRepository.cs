@@ -7,12 +7,10 @@ using ADM.Store.Models.Models.ItemStatus;
 using ADM.Store.Models.Models.ItemSubCategory;
 using ADM.Store.Models.Models.ItemType;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
+
+[assembly: InternalsVisibleTo("ADM.Store.Service")]
 namespace ADM.Store.AccessData.Repositories
 {
     internal class ItemRepository : IItemRepository
@@ -24,7 +22,7 @@ namespace ADM.Store.AccessData.Repositories
             _aDMStore = aDMStore;
         }
 
-        public async Task<string> CreateAsync(ItemCreateModel itemCreate)
+        public async Task<string> CreateAsync(ItemCreateModel itemCreate, int idStatus)
         {
             var newItem = new Item
             {
@@ -34,7 +32,7 @@ namespace ADM.Store.AccessData.Repositories
                 UnitPrice = itemCreate.UnitPrice,
                 ChageTax = itemCreate.ChageTax,
                 Stock = itemCreate.Stock,
-                ItemStatus = itemCreate.ItemStatus,
+                ItemStatus = idStatus,
                 ItemType = itemCreate.ItemType,
                 Material = itemCreate.Material,
                 Category = itemCreate.Category,
@@ -139,6 +137,7 @@ namespace ADM.Store.AccessData.Repositories
                             join status in _aDMStore.ItemStatuses on item.ItemStatus equals status.Id
                             join category in _aDMStore.ItemCategoryCats on item.Category equals category.Id
                             join subcategory in _aDMStore.ItemCategoryCats on item.SubCategory equals subcategory.Id
+                            orderby item.ItemCode
                             select new ItemDetailsModel
                             {
                                 ItemCode = item.ItemCode,

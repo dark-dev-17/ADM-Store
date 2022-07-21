@@ -8,7 +8,6 @@
         public decimal UnitPrice { get; set; }
         public bool ChageTax { get; set; }
         public int Stock { get; set; }
-        public int ItemStatus { get; set; }
         public int ItemType { get; set; }
         public int Material { get; set; }
         public int Category { get; set; }
