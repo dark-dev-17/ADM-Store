@@ -7,7 +7,6 @@
         public string ItemTile { get; set; } = null!;
         public string ItemDescription { get; set; } = null!;
         public decimal UnitPrice { get; set; }
-        public int Stock { get; set; }
         public string Size { get; set; } = null!;
         public string? ColorName { get; set; }
         public string? ColorCode { get; set; }

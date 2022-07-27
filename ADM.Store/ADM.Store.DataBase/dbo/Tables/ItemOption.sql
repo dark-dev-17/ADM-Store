@@ -7,6 +7,7 @@
 	UnitPrice decimal(10,2) not null,
 	Stock int not null,
 	Size nvarchar(10) not null,
+	ItemStatus int not null,
 	ColorName nvarchar(100) null,
 	ColorCode nvarchar(100) null,
 	CreatedBy nvarchar(200) not null,

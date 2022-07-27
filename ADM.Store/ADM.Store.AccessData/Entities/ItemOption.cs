@@ -12,6 +12,7 @@ namespace ADM.Store.AccessData.Entities
         public decimal UnitPrice { get; set; }
         public int Stock { get; set; }
         public string Size { get; set; } = null!;
+        public int ItemStatus { get; set; }
         public string? ColorName { get; set; }
         public string? ColorCode { get; set; }
         public string CreatedBy { get; set; } = null!;

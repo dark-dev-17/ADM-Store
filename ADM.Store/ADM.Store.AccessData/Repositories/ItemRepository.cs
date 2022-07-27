@@ -31,7 +31,7 @@ namespace ADM.Store.AccessData.Repositories
                 ItemDescription = itemCreate.ItemDescription,
                 UnitPrice = itemCreate.UnitPrice,
                 ChageTax = itemCreate.ChageTax,
-                Stock = itemCreate.Stock,
+                Stock = 0,
                 ItemStatus = idStatus,
                 ItemType = itemCreate.ItemType,
                 Material = itemCreate.Material,
@@ -197,7 +197,6 @@ namespace ADM.Store.AccessData.Repositories
             item.ItemDescription = itemUpdate.ItemDescription;
             item.UnitPrice = itemUpdate.UnitPrice;
             item.ChageTax = itemUpdate.ChageTax;
-            item.Stock = itemUpdate.Stock;
             item.ItemStatus = itemUpdate.ItemStatus;
             item.ItemType = itemUpdate.ItemType;
             item.Material = itemUpdate.Material;

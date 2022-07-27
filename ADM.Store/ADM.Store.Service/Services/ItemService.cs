@@ -2,6 +2,7 @@
 using ADM.Store.Models.Models.Item;
 using ADM.Store.Models.Models.ItemCategory;
 using ADM.Store.Models.Models.ItemMaterial;
+using ADM.Store.Models.Models.ItemOption;
 using ADM.Store.Models.Models.ItemSubCategory;
 using ADM.Store.Models.Models.ItemType;
 using ADM.Store.Service.Exceptions;
@@ -19,7 +20,6 @@ namespace ADM.Store.Service.Services
         private readonly IItemCategoryRepository _categoryRepository;
         private readonly IItemSubCategoryRepository _subCategoryRepository;
         private readonly IItemTypeRepository _typeItemRepository = null!;
-        //private readonly IItemThemeRepository _themeRepository;
         private readonly IItemMaterialRepository _materialRepository;
         private readonly IItemOptionRespository _optionRepository;
 
@@ -31,7 +31,6 @@ namespace ADM.Store.Service.Services
         private ItemMaterialDetailsModel material = null!;
         private ItemDetailsModel _item = null!;
         private readonly string _itemStatusInitial = "Draft";
-        //private readonly string _itemThemeDefault = "Default";
 
         public ItemService(IItemRepository itemRepository, IItemStatusRepository statusRepository, IItemCategoryRepository categoryRepository, IItemSubCategoryRepository subCategoryRepository, IItemTypeRepository typeItemRepository, IItemMaterialRepository materialRepository, IItemOptionRespository optionRepository, ILogger<ItemService> logger)
         {
@@ -45,7 +44,6 @@ namespace ADM.Store.Service.Services
             _optionRepository = optionRepository ?? throw new ArgumentNullException(nameof(optionRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -66,7 +64,7 @@ namespace ADM.Store.Service.Services
 
             if (await _itemRepository.ExistsAsync(itemCreate.ItemCode.Trim()).ConfigureAwait(false))
             {
-                throw new ExceptionService(409, "Warning", $"The material selected was not found in item type selected: {typeItem.TypeName}");
+                throw new ExceptionService(409, "Warning", $"There is already an article with the code: {itemCreate.ItemCode.Trim()}");
             }
 
             var idStatusItemInitial = await _statusRepository.GetByName(_itemStatusInitial).ConfigureAwait(false);
@@ -280,6 +278,92 @@ namespace ADM.Store.Service.Services
             _logger.LogInformation($"Item[{itemCode.Trim()}] was found successfully", _item);
 
             return _item;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="optionCreate"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionService"></exception>
+        public async Task<bool> AddOptionAsync(string itemCode, ItemOptionCreateModel optionCreate)
+        {
+            var idStatus = await _statusRepository.GetByName(_itemStatusInitial).ConfigureAwait(false);
+
+            if (await _optionRepository.ExistsAsync(itemCode.Trim(), optionCreate.Variation.Trim()).ConfigureAwait(false))
+            {
+                throw new ExceptionService(409, "Warning", $"There is exists a variation code in the item {itemCode.Trim()}");
+            }
+
+            return await _optionRepository.CreateAsync(optionCreate, idStatus).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="variation"></param>
+        /// <param name="itemUpdate"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionService"></exception>
+        public async Task<bool> UpdateOptionAsync(string itemCode, string variation, ItemOptionUpdateModel itemUpdate)
+        {
+            if (!await _optionRepository.ExistsAsync(itemCode.Trim(), variation.Trim()).ConfigureAwait(false))
+            {
+                throw new ExceptionService(404, "Warning", $"The option selected was not found in the item: [{itemCode.Trim()}]");
+            }
+
+
+            return await _optionRepository.UpdateAsync(itemUpdate).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="variation"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionService"></exception>
+        public async Task<bool> DeleteOptionAsync(string itemCode, string variation)
+        {
+            if (!await _optionRepository.ExistsAsync(itemCode.Trim(), variation.Trim()).ConfigureAwait(false))
+            {
+                throw new ExceptionService(404, "Warning", $"The option selected was not found in the item: [{itemCode.Trim()}]");
+            }
+
+            await _optionRepository.DeleteAsync(itemCode.Trim(), variation.Trim()).ConfigureAwait(false);
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="variation"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionService"></exception>
+        public async Task<ItemOptionDetailsModel> DetailsOptionAsync(string itemCode, string variation)
+        {
+            var optionFounded = await _optionRepository.DetailsAsync(itemCode.Trim(), variation.Trim()).ConfigureAwait(false);
+
+            if (optionFounded == null)
+            {
+                throw new ExceptionService(404, "Warning", $"The option selected was not found in the item: [{itemCode.Trim()}]");
+            }
+
+            return optionFounded;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public async Task<List<ItemOptionDetailsModel>> ListOptionAsync(string itemCode)
+        {
+            var listOptions = await _optionRepository.ListAsync(itemCode.Trim()).ConfigureAwait(false);
+
+            return listOptions;
         }
 
         #endregion

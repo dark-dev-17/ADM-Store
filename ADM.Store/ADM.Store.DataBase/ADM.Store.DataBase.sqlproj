@@ -92,4 +92,8 @@
   <ItemGroup>
     <PreDeploy Include="PreDeployment\ClearCatalogs.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="development.publish.xml" />
+    <None Include="ADM.Store.DataBase.publish.xml" />
+  </ItemGroup>
 </Project>

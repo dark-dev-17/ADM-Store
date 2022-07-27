@@ -17,7 +17,7 @@ namespace ADM.Store.AccessData.Repositories
             _aDMStore = aDMStore;
         }
 
-        public async Task<bool> CreateAsync(ItemOptionCreateModel itemOption)
+        public async Task<bool> CreateAsync(ItemOptionCreateModel itemOption, int idStatus)
         {
             var newOption = new ItemOption
             {
@@ -26,7 +26,8 @@ namespace ADM.Store.AccessData.Repositories
                 ItemTile = itemOption.ItemTile,
                 ItemDescription = itemOption.ItemDescription,
                 UnitPrice = itemOption.UnitPrice,
-                Stock = itemOption.Stock,
+                ItemStatus = idStatus,
+                Stock = 0,
                 Size = itemOption.Size,
                 ColorName = itemOption.ColorName,
                 ColorCode = itemOption.ColorCode,
@@ -121,7 +122,6 @@ namespace ADM.Store.AccessData.Repositories
             optionToUpdate.ItemTile = itemOption.ItemTile;
             optionToUpdate.ItemDescription = itemOption.ItemDescription;
             optionToUpdate.UnitPrice = itemOption.UnitPrice;
-            optionToUpdate.Stock = itemOption.Stock;
             optionToUpdate.Size = itemOption.Size;
             optionToUpdate.ColorName = itemOption.ColorName;
             optionToUpdate.ColorCode = itemOption.ColorCode;

@@ -221,7 +221,7 @@ namespace ADM.Store.AccessData
             modelBuilder.Entity<ItemOption>(entity =>
             {
                 entity.HasKey(e => new { e.ItemCode, e.Variation })
-                    .HasName("PK__tmp_ms_x__D8C03FDC035CED9A");
+                    .HasName("PK__tmp_ms_x__D8C03FDC4C437608");
 
                 entity.ToTable("ItemOption");
 
@@ -249,7 +249,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemOptions)
                     .HasForeignKey(d => d.ItemCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemOptio__ItemC__5535A963");
+                    .HasConstraintName("FK__ItemOptio__ItemC__02FC7413");
             });
 
             modelBuilder.Entity<ItemStatus>(entity =>
