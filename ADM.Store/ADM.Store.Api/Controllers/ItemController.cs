@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 namespace ADM.Store.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ItemController : ControllerBase
     {
@@ -48,6 +49,10 @@ namespace ADM.Store.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ExceptionService ex)
             {
                 if (ex.ErrorCode == 404)
@@ -77,6 +82,10 @@ namespace ADM.Store.Api.Controllers
 
                 return Ok($"The item [{itemCode}] was deleted successfully");
             }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ArgumentOutOfRangeException ex)
             {
                 return BadRequest(ex.Message);
@@ -105,6 +114,10 @@ namespace ADM.Store.Api.Controllers
                 var itemDetails = await _itemService.DetailsAsync(itemCode).ConfigureAwait(false);
 
                 return Ok(itemDetails);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -150,6 +163,10 @@ namespace ADM.Store.Api.Controllers
                     return BadRequest($"The item: [{itemCode}] was not saved");
                 }
             }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ArgumentOutOfRangeException ex)
             {
                 return BadRequest(ex.Message);
@@ -179,6 +196,10 @@ namespace ADM.Store.Api.Controllers
                 var itemDetails = await _itemService.AddOptionAsync(itemCode, optionCreate).ConfigureAwait(false);
 
                 return CreatedAtAction(nameof(DetailsOptionAsync), new { itemCode = itemCode, variation = optionCreate.Variation });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -211,6 +232,10 @@ namespace ADM.Store.Api.Controllers
                 var itemDetails = await _itemService.DetailsOptionAsync(itemCode, variation).ConfigureAwait(false);
 
                 return Ok(itemDetails);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -250,6 +275,10 @@ namespace ADM.Store.Api.Controllers
 
                 return Ok($"The item [{itemCode}] was deleted successfully");
             }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ArgumentOutOfRangeException ex)
             {
                 return BadRequest(ex.Message);
@@ -284,6 +313,10 @@ namespace ADM.Store.Api.Controllers
                 {
                     return BadRequest($"The item: [{itemCode}] was not saved");
                 }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {

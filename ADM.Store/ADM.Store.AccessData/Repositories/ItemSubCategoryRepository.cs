@@ -64,6 +64,7 @@ namespace ADM.Store.AccessData.Repositories
                                 {
                                     Id = cat.Id,
                                     CategoryName = cat.CategoryName,
+                                    CategoryParent = cat.CategoryParent
                                 };
             return await queryCategory.FirstOrDefaultAsync().ConfigureAwait(false);
         }

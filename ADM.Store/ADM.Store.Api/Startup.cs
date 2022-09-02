@@ -25,7 +25,7 @@ namespace ADM.Store.Api
                                   policy =>
                                   {
                                       policy.WithOrigins("http://example.com",
-                                                          "http://localhost:3000","*").AllowAnyOrigin().AllowAnyHeader();
+                                                          "http://localhost:3000","*").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                                   });
             });
             services

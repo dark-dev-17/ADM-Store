@@ -12,8 +12,9 @@ namespace ADM.Store.Service
         {
             // Services
             services.AddTransient<IItemService,ItemService>();
-            //services.AddTransient<ICompraService, CompraService>();
-            //services.AddTransient<ICompraTipoService, CompraTipoService>();
+            services.AddTransient<IItemTypeService, ItemTypeService>();
+            services.AddTransient<IItemCategoryService, ItemCategoryService>();
+            services.AddTransient<IItemMaterialService, ItemMaterialService>();
             //services.AddTransient<IDocumentService, DocumentService>();
             return services;
         }
