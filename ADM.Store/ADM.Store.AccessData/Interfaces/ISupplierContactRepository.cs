@@ -11,7 +11,7 @@ namespace ADM.Store.AccessData.Interfaces
         public Task<SupplierContactDetailsModel?> DetailsAsync(int idSupplierContact);
         public Task<SupplierContactDetailsModel?> DetailsAsync(string nameSupplierContact);
         public Task<int> ExistsAsync(int idSupplierContact);
-        public Task<int> ExistsAsync(string nameSupplierContact);
+        public Task<int> ExistsAsync(string nameSupplierContact, string cardCode);
         public Task<List<SupplierContactDetailsModel>> ListAsync(string cardCode);
         public Task UpdateAsync(SupplierContactUpdateModel contactUpdateModel);
         public Task DeleteAsync(int idSupplierContact);

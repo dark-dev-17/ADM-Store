@@ -6,13 +6,13 @@ namespace ADM.Store.AccessData.Interfaces
 {
     internal interface ISupplierRepository
     {
-        public Task<int> CreateAsync(string supplierName);
+        public Task<string> CreateAsync(SupplierCreateModel supplierCreate);
         public Task<SupplierDetailsModel?> DetailsAsync(string CardCode);
-        public Task<int> ExistsByNameAsync(string supplierName);
-        public Task<int> ExistsByCardCodeAsync(string CardCode);
+        public Task<string?> ExistsByNameAsync(string supplierName);
+        public Task<bool> ExistsByCardCodeAsync(string CardCode);
         public Task<List<SupplierDetailsModel>> ListAsync();
         public Task<List<SupplierDetailsModel>> ListAsync(int statusId);
-        public Task UpdateAsync(string cardCode, string supplierName);
+        public Task UpdateAsync(SupplierUpdateModel supplierUpdate);
 
     }
 }

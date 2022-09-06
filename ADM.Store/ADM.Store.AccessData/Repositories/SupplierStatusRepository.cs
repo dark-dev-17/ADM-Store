@@ -1,10 +1,5 @@
 ﻿using ADM.Store.AccessData.Interfaces;
 using ADM.Store.Models.Models.SupplierStatus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using ADM.Store.AccessData.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +15,11 @@ namespace ADM.Store.AccessData.Repositories
         {
             _aDMStore = aDMStore;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="supplierStatusName"></param>
+        /// <returns></returns>
         public async Task<int> CreateAsync(string supplierStatusName)
         {
             var newSupplierStatus = new SupplierStatusCat()
@@ -32,7 +31,11 @@ namespace ADM.Store.AccessData.Repositories
 
             return newSupplierStatus.Id;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idSupplierStatus"></param>
+        /// <returns></returns>
         public async Task<SupplierStatusDetailsModel?> DetailsAsync(int idSupplierStatus)
         {
             var supplierStatus_query = from status in _aDMStore.SupplierStatusCats
@@ -45,7 +48,11 @@ namespace ADM.Store.AccessData.Repositories
 
             return await supplierStatus_query.FirstOrDefaultAsync().ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="supplierStatusName"></param>
+        /// <returns></returns>
         public async Task<SupplierStatusDetailsModel?> DetailsAsync(string supplierStatusName)
         {
             var supplierStatus_query = from status in _aDMStore.SupplierStatusCats
@@ -58,7 +65,11 @@ namespace ADM.Store.AccessData.Repositories
 
             return await supplierStatus_query.FirstOrDefaultAsync().ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idSupplierStatus"></param>
+        /// <returns></returns>
         public async Task<int> ExistsAsync(int idSupplierStatus)
         {
             var supplierStatus_query = from status in _aDMStore.SupplierStatusCats
@@ -66,7 +77,11 @@ namespace ADM.Store.AccessData.Repositories
                                        select status.Id;
             return await supplierStatus_query.FirstOrDefaultAsync().ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="supplierStatusName"></param>
+        /// <returns></returns>
         public async Task<int> ExistsAsync(string supplierStatusName)
         {
             var supplierStatus_query = from status in _aDMStore.SupplierStatusCats
@@ -74,7 +89,10 @@ namespace ADM.Store.AccessData.Repositories
                                        select status.Id;
             return await supplierStatus_query.FirstOrDefaultAsync().ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<SupplierStatusDetailsModel>> ListAsync()
         {
             var supplierStatus_query = from status in _aDMStore.SupplierStatusCats
@@ -86,14 +104,20 @@ namespace ADM.Store.AccessData.Repositories
 
             return await supplierStatus_query.ToListAsync().ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idSupplierStatus"></param>
+        /// <param name="supplierStatusName"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
         public async Task UpdateAsync(int idSupplierStatus, string supplierStatusName)
         {
             var supplierStatus = await _aDMStore.SupplierStatusCats.FirstOrDefaultAsync(status => status.Id == idSupplierStatus).ConfigureAwait(false);
 
             if (supplierStatus == null)
             {
-                throw new NullReferenceException(nameof(SupplierStatusCat));
+                throw new NullReferenceException();
             }
             supplierStatus.StatusName = supplierStatusName;
 

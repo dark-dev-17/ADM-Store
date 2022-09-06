@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Interfaces\Inventory\" />
+    <Folder Include="Repositories\Inventory\" />
   </ItemGroup>
 
 </Project>
