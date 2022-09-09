@@ -20,6 +20,7 @@ namespace ADM.Store.AccessData
             services.AddTransient<IItemThemeRepository, ItemThemeRepository>();
             services.AddTransient<IItemTypeRepository, ItemTypeRepository>();
             services.AddTransient<IItemOptionRespository, ItemOptionRespository>();
+            services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<ISupplierContactRepository, SupplierContactRepository>();
             services.AddTransient<ISupplierLocationRepository, SupplierLocationRepository>();

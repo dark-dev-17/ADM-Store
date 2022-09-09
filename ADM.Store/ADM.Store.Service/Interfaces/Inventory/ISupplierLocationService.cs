@@ -1,9 +1,7 @@
 ﻿using ADM.Store.Models.Models.SupplierLocation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ADM.Store.Api")]
 
 namespace ADM.Store.Service.Interfaces.Inventory
 {

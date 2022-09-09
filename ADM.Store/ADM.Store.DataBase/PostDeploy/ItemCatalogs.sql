@@ -51,4 +51,8 @@ insert into ItemCategoryCat(ItemType,CategoryName,CategoryParent) values (@Jewel
 insert into ItemCategoryCat(ItemType,CategoryName,CategoryParent) values (@JewelerId,'Belcher',@cadenaIdCategory)
 insert into ItemCategoryCat(ItemType,CategoryName,CategoryParent) values (@JewelerId,'',@cadenaIdCategory)
 
+insert into SupplierStatusCat(StatusName) values('Activo');
+insert into SupplierStatusCat(StatusName) values('Borrador');
+
+
 

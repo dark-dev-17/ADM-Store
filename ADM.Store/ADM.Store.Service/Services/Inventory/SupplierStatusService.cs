@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using ADM.Store.Service.Interfaces.Inventory;
 using ADM.Store.Models.Models.SupplierStatus;
 using Microsoft.Extensions.Logging;
@@ -19,9 +14,9 @@ namespace ADM.Store.Service.Services.Inventory
         private readonly ISupplierStatusRepository _statusRepository;
         private readonly ILogger<SupplierStatusService> _logger;
 
-        public SupplierStatusService(ISupplierStatusRepository subCategoryRepository, ILogger<SupplierStatusService> logger)
+        public SupplierStatusService(ISupplierStatusRepository statusRepository, ILogger<SupplierStatusService> logger)
         {
-            _statusRepository = _statusRepository ?? throw new ArgumentNullException(nameof(subCategoryRepository));
+            _statusRepository = statusRepository ?? throw new ArgumentNullException(nameof(statusRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         /// <summary>

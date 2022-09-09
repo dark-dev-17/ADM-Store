@@ -3,12 +3,9 @@ using ADM.Store.Models.Models.SupplierLocation;
 using ADM.Store.Service.Exceptions;
 using ADM.Store.Service.Interfaces.Inventory;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ADM.Store.Api")]
 namespace ADM.Store.Service.Services.Inventory
 {
     internal class SupplierLocationService : ISupplierLocationService
@@ -16,9 +13,9 @@ namespace ADM.Store.Service.Services.Inventory
         private readonly ISupplierLocationRepository _locationRepository;
         private readonly ILogger<SupplierLocationService> _logger;
 
-        public SupplierLocationService(ISupplierLocationRepository _locationRepository, ILogger<SupplierLocationService> logger)
+        public SupplierLocationService(ISupplierLocationRepository locationRepository, ILogger<SupplierLocationService> logger)
         {
-            _locationRepository = _locationRepository ?? throw new ArgumentNullException(nameof(_locationRepository));
+            _locationRepository = locationRepository ?? throw new ArgumentNullException(nameof(locationRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         /// <summary>
@@ -48,7 +45,7 @@ namespace ADM.Store.Service.Services.Inventory
 
             if (locationDetails == null)
             {
-                throw new ExceptionService(StatusCodeService.Status404NotFound, "La ubicacion del proveedor no fue registrada");
+                throw new ExceptionService(-201, "La ubicacion del proveedor no fue registrada");
             }
 
             return locationDetails;

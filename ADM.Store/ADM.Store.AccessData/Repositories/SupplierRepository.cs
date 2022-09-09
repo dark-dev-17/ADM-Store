@@ -151,8 +151,9 @@ namespace ADM.Store.AccessData.Repositories
 
             supplier.SuplierName = supplierUpdate.SuplierName;
             supplier.SupplierStatus = supplierUpdate.SupplierStatus;
+            supplier.Active = supplierUpdate.Active;
             supplier.UpdatedAt = DateTime.Now;
-
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ADM.Store.Service.Services
         private ItemSubCategoryDetailsModel subCategory = null!;
         private ItemMaterialDetailsModel material = null!;
         private ItemDetailsModel _item = null!;
-        private readonly string _itemStatusInitial = "Draft";
+        private readonly string _itemStatusInitial = "Borrador";
 
         public ItemService(IItemRepository itemRepository, IItemStatusRepository statusRepository, IItemCategoryRepository categoryRepository, IItemSubCategoryRepository subCategoryRepository, IItemTypeRepository typeItemRepository, IItemMaterialRepository materialRepository, IItemOptionRespository optionRepository, ILogger<ItemService> logger)
         {
