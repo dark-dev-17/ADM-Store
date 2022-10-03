@@ -1,5 +1,7 @@
 ﻿using ADM.Store.AccessData.Interfaces;
+using ADM.Store.AccessData.Interfaces.Purchasing;
 using ADM.Store.AccessData.Repositories;
+using ADM.Store.AccessData.Repositories.Purchasing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +14,7 @@ namespace ADM.Store.AccessData
     {
         public static IServiceCollection RegisterDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
-            // Services
+            // Services for inventory
             services.AddTransient<IItemCategoryRepository, ItemCategoryRepository>();
             services.AddTransient<IItemMaterialRepository, ItemMaterialRepository>();
             services.AddTransient<IItemStatusRepository, ItemStatusRepository>();
@@ -21,10 +23,13 @@ namespace ADM.Store.AccessData
             services.AddTransient<IItemTypeRepository, ItemTypeRepository>();
             services.AddTransient<IItemOptionRespository, ItemOptionRespository>();
             services.AddTransient<IItemRepository, ItemRepository>();
+            //services for purchasing
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<ISupplierContactRepository, SupplierContactRepository>();
             services.AddTransient<ISupplierLocationRepository, SupplierLocationRepository>();
             services.AddTransient<ISupplierStatusRepository, SupplierStatusRepository>();
+            services.AddTransient<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services.AddTransient<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

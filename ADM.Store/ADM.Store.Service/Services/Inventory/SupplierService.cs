@@ -29,6 +29,12 @@ namespace ADM.Store.Service.Services.Inventory
         public async Task<SupplierDetailsModel> CreateAsync(SupplierCreateModel newSupplier)
         {
             SetSupplier(newSupplier.CardCode);
+
+            if (await _supplierRepository.ExistsByCardCodeAsync(newSupplier.CardCode))
+            {
+                throw new ExceptionService(StatusCodeService.Status404NotFound, ConstantsService.SUPPLIER_IS_ALREADY_CREATED_CARDCODE);
+            }
+
             await _supplierRepository.CreateAsync(newSupplier).ConfigureAwait(false);
 
             return await DetailsAsync(newSupplier.CardCode).ConfigureAwait(false);
