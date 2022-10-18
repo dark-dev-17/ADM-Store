@@ -21,6 +21,7 @@ namespace ADM.Store.Models.Models.PurchaseOrder
         public string DocStatus { get; set; } = null!;
         public bool Canceled { get; set; }
         public DateTime CandeledDate { get; set; }
+        public decimal DocTotal { get; set; }
         public string CanceledBy { get; set; } = null!;
         public string CreatedBy { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
@@ -34,6 +35,7 @@ namespace ADM.Store.Models.Models.PurchaseOrder
         public SupplierDetailsModel Supplier { get; set; } = null!;
         public DateTime DocDate { get; set; }
         public string DocStatus { get; set; } = null!;
+        public decimal DocTotal { get; set; }
         public bool Canceled { get; set; }
         public DateTime CandeledDate { get; set; }
         public string CreatedBy { get; set; } = null!;
@@ -52,6 +54,7 @@ namespace ADM.Store.Models.Models.PurchaseOrder
 
     public class PurchaseOrderUpdateModel
     {
+        public int DocNum { get; set; }
         public string CardCode { get; set; } = null!;
         public int SupplierLocation { get; set; }
         public int SupplierContact { get; set; }

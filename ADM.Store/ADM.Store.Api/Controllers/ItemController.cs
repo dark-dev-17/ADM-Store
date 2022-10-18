@@ -27,6 +27,36 @@ namespace ADM.Store.Api.Controllers
                 throw new ArgumentNullException(nameof(_itemService));
             }
         }
+        [HttpPost("validate-item-exists/{itemCode}")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ValidateItemCodeVariation(string itemCode)
+        {
+            try
+            {
+                return Ok(await _itemService.ValidateItemCodeVariation(itemCode).ConfigureAwait(false));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ExceptionService ex)
+            {
+                if (ex.ErrorCode == 404)
+                {
+                    return NotFound(ex.Message);
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -128,6 +128,42 @@ namespace ADM.Store.AccessData.Repositories
             return await _aDMStore.Items.AnyAsync(item => item.ItemCode == itemCode).ConfigureAwait(false);
         }
 
+        public async Task<string> ExistsItemVariationAsync(string itemCode)
+        {
+            string resultDetails = "";
+            if (itemCode.Contains("-"))
+            {
+                string[] code = itemCode.Split("-");
+                string baseItem =code[0];
+
+                var itemDetails = await _aDMStore.Items.FirstOrDefaultAsync(item => item.ItemCode == baseItem).ConfigureAwait(false);
+                if (itemDetails != null)
+                {
+                    var variationDetails = await _aDMStore.ItemOptions.FirstOrDefaultAsync(item => item.ItemCode == baseItem && item.Variation == code[1]).ConfigureAwait(false);
+
+                    if(variationDetails != null)
+                    {
+                        resultDetails = $"{itemDetails.ItemTile} {variationDetails.Size}";
+                    }
+                    else
+                    {
+                        resultDetails = $"{itemDetails.ItemTile}";
+                    }
+                }
+            }
+            else {
+                var itemDetails = await _aDMStore.Items.FirstOrDefaultAsync(item => item.ItemCode == itemCode).ConfigureAwait(false);
+                if(itemDetails != null)
+                {
+                    resultDetails = itemDetails.ItemTile;
+
+                }
+                
+            }
+
+            return resultDetails;
+        }
+
         public async Task<List<ItemDetailsModel>> ListAsync()
         {
             #region query

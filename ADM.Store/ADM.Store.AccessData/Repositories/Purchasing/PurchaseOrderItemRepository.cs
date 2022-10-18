@@ -16,11 +16,32 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             _aDMStore = aDMStore;
         }
 
-        public async Task CreateAsync(PurchaseOrderItemCreateModel itemCreateModel)
+        public async Task CreateAsync(int docNum, PurchaseOrderItemCreateModel itemCreateModel)
         {
-            var newItem = new PurchaseOrderItem
+            var newItem = SetCreate(docNum, itemCreateModel);
+
+            await _aDMStore.PurchaseOrderItems.AddAsync(newItem).ConfigureAwait(false);
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task CreateAsync(int docNum, List<PurchaseOrderItemCreateModel> listItemCreateModel)
+        {
+            if (listItemCreateModel != null && listItemCreateModel.Count > 0)
             {
-                DocNum = itemCreateModel.DocNum,
+                listItemCreateModel.ForEach(async item =>
+                {
+                    var newItem = SetCreate(docNum, item);
+                    await _aDMStore.PurchaseOrderItems.AddAsync(newItem).ConfigureAwait(false);
+                });
+                    await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+            }
+        }
+
+        private PurchaseOrderItem SetCreate(int docNum, PurchaseOrderItemCreateModel itemCreateModel)
+        {
+            return new PurchaseOrderItem
+            {
+                DocNum = docNum,
                 ItemCode = itemCreateModel.ItemCode,
                 Variation = itemCreateModel.Variation,
                 LineNum = itemCreateModel.LineNum,
@@ -30,14 +51,12 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                 Comments = itemCreateModel.Comments,
                 Reference1 = itemCreateModel.Reference1,
                 Reference2 = itemCreateModel.Reference2,
+                TypeItem = itemCreateModel.TypeItem,
                 // TODO service-user
                 CreatedBy = "USER-SYS",
                 UpdatedAt = DateTime.Now,
                 CreatedAt = DateTime.Now,
             };
-
-            await _aDMStore.PurchaseOrderItems.AddAsync(newItem).ConfigureAwait(false);
-            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(PurchaseOrderItemDeleteModel itemDeleteModel)
@@ -55,6 +74,11 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
 
             _aDMStore.PurchaseOrderItems.Remove(ItemDetails);
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public Task DeleteAsync(List<PurchaseOrderItemDeleteModel> itemDeleteModel)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(PurchaseOrderItemUpdateModel itemUpdateModel)
@@ -84,6 +108,11 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             ItemDetails.UpdatedAt = DateTime.Now;
 
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public Task UpdateAsync(List<PurchaseOrderItemUpdateModel> itemUpdateModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace ADM.Store.AccessData.Entities
         public PurchaseOrder()
         {
             OutgoingPayments = new HashSet<OutgoingPayment>();
+            PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
         }
 
         public int DocNum { get; set; }
@@ -27,7 +28,7 @@ namespace ADM.Store.AccessData.Entities
         public virtual SupplierContact SupplierContactNavigation { get; set; } = null!;
         public virtual SupplierLocation SupplierLocationNavigation { get; set; } = null!;
         public virtual Supplier SupplierNavigation { get; set; } = null!;
-        public virtual PurchaseOrderItem PurchaseOrderItem { get; set; } = null!;
         public virtual ICollection<OutgoingPayment> OutgoingPayments { get; set; }
+        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItems { get; set; }
     }
 }

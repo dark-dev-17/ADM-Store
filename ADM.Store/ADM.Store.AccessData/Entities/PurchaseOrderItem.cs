@@ -5,9 +5,11 @@ namespace ADM.Store.AccessData.Entities
 {
     public partial class PurchaseOrderItem
     {
-        public int DocNum { get; set; }
+        public int Id { get; set; }
+        public int? DocNum { get; set; }
         public string ItemCode { get; set; } = null!;
         public string? Variation { get; set; }
+        public string TypeItem { get; set; } = null!;
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
@@ -19,7 +21,6 @@ namespace ADM.Store.AccessData.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public virtual PurchaseOrder DocNumNavigation { get; set; } = null!;
-        public virtual Item ItemCodeNavigation { get; set; } = null!;
+        public virtual PurchaseOrder? DocNumNavigation { get; set; }
     }
 }

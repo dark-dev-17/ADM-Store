@@ -123,24 +123,24 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.IncommingPayments)
                     .HasForeignKey(d => d.BussinesAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Incomming__Bussi__70DDC3D8");
+                    .HasConstraintName("FK__Incomming__Bussi__5070F446");
 
                 entity.HasOne(d => d.CustomerNavigation)
                     .WithMany(p => p.IncommingPayments)
                     .HasForeignKey(d => d.Customer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Incomming__Custo__6EF57B66");
+                    .HasConstraintName("FK__Incomming__Custo__4E88ABD4");
 
                 entity.HasOne(d => d.DocNumNavigation)
                     .WithMany(p => p.IncommingPayments)
                     .HasForeignKey(d => d.DocNum)
-                    .HasConstraintName("FK__Incomming__DocNu__6FE99F9F");
+                    .HasConstraintName("FK__Incomming__DocNu__4F7CD00D");
             });
 
             modelBuilder.Entity<Item>(entity =>
             {
                 entity.HasKey(e => e.ItemCode)
-                    .HasName("PK__Item__3ECC0FEBE991419D");
+                    .HasName("PK__Item__3ECC0FEB6CA8F7EA");
 
                 entity.ToTable("Item");
 
@@ -166,30 +166,30 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemCategoryNavigations)
                     .HasForeignKey(d => d.Category)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__Category__36B12243");
+                    .HasConstraintName("FK__Item__Category__5441852A");
 
                 entity.HasOne(d => d.ItemStatusNavigation)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.ItemStatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__ItemStatus__33D4B598");
+                    .HasConstraintName("FK__Item__ItemStatus__5165187F");
 
                 entity.HasOne(d => d.ItemTypeNavigation)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__ItemType__34C8D9D1");
+                    .HasConstraintName("FK__Item__ItemType__52593CB8");
 
                 entity.HasOne(d => d.MaterialNavigation)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.Material)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__Material__35BCFE0A");
+                    .HasConstraintName("FK__Item__Material__534D60F1");
 
                 entity.HasOne(d => d.SubCategoryNavigation)
                     .WithMany(p => p.ItemSubCategoryNavigations)
                     .HasForeignKey(d => d.SubCategory)
-                    .HasConstraintName("FK__Item__SubCategor__37A5467C");
+                    .HasConstraintName("FK__Item__SubCategor__5535A963");
             });
 
             modelBuilder.Entity<ItemCategoryCat>(entity =>
@@ -202,7 +202,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemCategoryCats)
                     .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemCateg__ItemT__38996AB5");
+                    .HasConstraintName("FK__ItemCateg__ItemT__5629CD9C");
             });
 
             modelBuilder.Entity<ItemMaterialCat>(entity =>
@@ -215,13 +215,13 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemMaterialCats)
                     .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemMater__ItemT__3A81B327");
+                    .HasConstraintName("FK__ItemMater__ItemT__5812160E");
             });
 
             modelBuilder.Entity<ItemOption>(entity =>
             {
                 entity.HasKey(e => new { e.ItemCode, e.Variation })
-                    .HasName("PK__tmp_ms_x__D8C03FDC4C437608");
+                    .HasName("PK__ItemOpti__D8C03FDC31167985");
 
                 entity.ToTable("ItemOption");
 
@@ -249,7 +249,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemOptions)
                     .HasForeignKey(d => d.ItemCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemOptio__ItemC__02FC7413");
+                    .HasConstraintName("FK__ItemOptio__ItemC__59063A47");
             });
 
             modelBuilder.Entity<ItemStatus>(entity =>
@@ -262,7 +262,7 @@ namespace ADM.Store.AccessData
             modelBuilder.Entity<ItemTag>(entity =>
             {
                 entity.HasKey(e => new { e.ItemCode, e.ItemTag1 })
-                    .HasName("PK__ItemTag__AC8020E3E914CFD6");
+                    .HasName("PK__ItemTag__AC8020E3CF5C78C4");
 
                 entity.ToTable("ItemTag");
 
@@ -281,7 +281,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemTagsCats)
                     .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemTagsC__ItemT__3C69FB99");
+                    .HasConstraintName("FK__ItemTagsC__ItemT__59FA5E80");
             });
 
             modelBuilder.Entity<ItemThemeCat>(entity =>
@@ -294,7 +294,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.ItemThemeCats)
                     .HasForeignKey(d => d.ItemType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ItemTheme__ItemT__3D5E1FD2");
+                    .HasConstraintName("FK__ItemTheme__ItemT__5AEE82B9");
             });
 
             modelBuilder.Entity<ItemTypeCat>(entity =>
@@ -322,19 +322,19 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.OutgoingPayments)
                     .HasForeignKey(d => d.BussinesAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OutgoingP__Bussi__72C60C4A");
+                    .HasConstraintName("FK__OutgoingP__Bussi__5CD6CB2B");
 
                 entity.HasOne(d => d.DocNumNavigation)
                     .WithMany(p => p.OutgoingPayments)
                     .HasForeignKey(d => d.DocNum)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OutgoingP__DocNu__71D1E811");
+                    .HasConstraintName("FK__OutgoingP__DocNu__5BE2A6F2");
             });
 
             modelBuilder.Entity<PurchaseOrder>(entity =>
             {
                 entity.HasKey(e => e.DocNum)
-                    .HasName("PK__Purchase__420AEAF15E5BF624");
+                    .HasName("PK__Purchase__420AEAF1C670B709");
 
                 entity.ToTable("PurchaseOrder");
 
@@ -362,29 +362,24 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.PurchaseOrders)
                     .HasForeignKey(d => d.Supplier)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PurchaseO__Suppl__5629CD9C");
+                    .HasConstraintName("FK__PurchaseO__Suppl__5DCAEF64");
 
                 entity.HasOne(d => d.SupplierContactNavigation)
                     .WithMany(p => p.PurchaseOrders)
                     .HasForeignKey(d => d.SupplierContact)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PurchaseO__Suppl__5812160E");
+                    .HasConstraintName("FK__PurchaseO__Suppl__5FB337D6");
 
                 entity.HasOne(d => d.SupplierLocationNavigation)
                     .WithMany(p => p.PurchaseOrders)
                     .HasForeignKey(d => d.SupplierLocation)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PurchaseO__Suppl__571DF1D5");
+                    .HasConstraintName("FK__PurchaseO__Suppl__5EBF139D");
             });
 
             modelBuilder.Entity<PurchaseOrderItem>(entity =>
             {
-                entity.HasKey(e => e.DocNum)
-                    .HasName("PK__tmp_ms_x__420AEAF171D48FC1");
-
                 entity.ToTable("PurchaseOrderItem");
-
-                entity.Property(e => e.DocNum).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -398,6 +393,8 @@ namespace ADM.Store.AccessData
 
                 entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
 
+                entity.Property(e => e.TypeItem).HasMaxLength(3);
+
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -405,22 +402,15 @@ namespace ADM.Store.AccessData
                 entity.Property(e => e.Variation).HasMaxLength(3);
 
                 entity.HasOne(d => d.DocNumNavigation)
-                    .WithOne(p => p.PurchaseOrderItem)
-                    .HasForeignKey<PurchaseOrderItem>(d => d.DocNum)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PurchaseO__DocNu__6D0D32F4");
-
-                entity.HasOne(d => d.ItemCodeNavigation)
                     .WithMany(p => p.PurchaseOrderItems)
-                    .HasForeignKey(d => d.ItemCode)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PurchaseO__ItemC__6E01572D");
+                    .HasForeignKey(d => d.DocNum)
+                    .HasConstraintName("FK__PurchaseO__DocNu__6FE99F9F");
             });
 
             modelBuilder.Entity<SalesOrder>(entity =>
             {
                 entity.HasKey(e => e.DocNum)
-                    .HasName("PK__SalesOrd__420AEAF1FD3E8C1C");
+                    .HasName("PK__SalesOrd__420AEAF1874AAF8D");
 
                 entity.ToTable("SalesOrder");
 
@@ -446,13 +436,13 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.SalesOrders)
                     .HasForeignKey(d => d.Customer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SalesOrde__Custo__73BA3083");
+                    .HasConstraintName("FK__SalesOrde__Custo__619B8048");
 
                 entity.HasOne(d => d.DocTypeNavigation)
                     .WithMany(p => p.SalesOrders)
                     .HasForeignKey(d => d.DocType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SalesOrde__DocTy__74AE54BC");
+                    .HasConstraintName("FK__SalesOrde__DocTy__628FA481");
             });
 
             modelBuilder.Entity<SalesOrderItem>(entity =>
@@ -481,13 +471,13 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.SalesOrderItems)
                     .HasForeignKey(d => d.DocNum)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SalesOrde__DocNu__75A278F5");
+                    .HasConstraintName("FK__SalesOrde__DocNu__6383C8BA");
 
                 entity.HasOne(d => d.ItemCodeNavigation)
                     .WithMany(p => p.SalesOrderItems)
                     .HasForeignKey(d => d.ItemCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SalesOrde__ItemC__76969D2E");
+                    .HasConstraintName("FK__SalesOrde__ItemC__6477ECF3");
             });
 
             modelBuilder.Entity<SalesOrderType>(entity =>
@@ -500,7 +490,7 @@ namespace ADM.Store.AccessData
             modelBuilder.Entity<Supplier>(entity =>
             {
                 entity.HasKey(e => e.CardCode)
-                    .HasName("PK__Supplier__3D531706D5C8710C");
+                    .HasName("PK__Supplier__3D53170636DB667D");
 
                 entity.ToTable("Supplier");
 
@@ -518,7 +508,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.Suppliers)
                     .HasForeignKey(d => d.SupplierStatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Supplier__Suppli__59063A47");
+                    .HasConstraintName("FK__Supplier__Suppli__656C112C");
             });
 
             modelBuilder.Entity<SupplierContact>(entity =>
@@ -539,7 +529,7 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.SupplierContacts)
                     .HasForeignKey(d => d.CardCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SupplierC__CardC__59FA5E80");
+                    .HasConstraintName("FK__SupplierC__CardC__66603565");
             });
 
             modelBuilder.Entity<SupplierLocation>(entity =>
@@ -564,14 +554,12 @@ namespace ADM.Store.AccessData
                     .WithMany(p => p.SupplierLocations)
                     .HasForeignKey(d => d.CardCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SupplierL__CardC__5AEE82B9");
+                    .HasConstraintName("FK__SupplierL__CardC__6754599E");
             });
 
             modelBuilder.Entity<SupplierStatusCat>(entity =>
             {
                 entity.ToTable("SupplierStatusCat");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.StatusName).HasMaxLength(150);
             });

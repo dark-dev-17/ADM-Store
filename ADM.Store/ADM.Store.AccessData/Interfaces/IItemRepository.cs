@@ -12,5 +12,6 @@ namespace ADM.Store.AccessData.Interfaces
         public Task<List<ItemDetailsModel>> ListAsync();
         public Task<bool> DeleteAsync(string itemCode);
         public Task<bool> UpdateAsync(ItemUpdateModel itemUpdate);
+        public Task<string> ExistsItemVariationAsync(string itemCode);
     }
 }

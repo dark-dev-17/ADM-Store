@@ -8,7 +8,6 @@ namespace ADM.Store.AccessData.Entities
         public Item()
         {
             ItemOptions = new HashSet<ItemOption>();
-            PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
             SalesOrderItems = new HashSet<SalesOrderItem>();
         }
 
@@ -37,7 +36,6 @@ namespace ADM.Store.AccessData.Entities
         public virtual ItemMaterialCat MaterialNavigation { get; set; } = null!;
         public virtual ItemCategoryCat? SubCategoryNavigation { get; set; }
         public virtual ICollection<ItemOption> ItemOptions { get; set; }
-        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItems { get; set; }
         public virtual ICollection<SalesOrderItem> SalesOrderItems { get; set; }
     }
 }

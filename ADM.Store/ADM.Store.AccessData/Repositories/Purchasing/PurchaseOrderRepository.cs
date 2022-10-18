@@ -55,8 +55,9 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
         {
             var queryPurchaseOrder = from order in _aDMStore.PurchaseOrders
                                      where order.DocNum == docNum
-                                     let supplier_jq = from supplier in _aDMStore.Suppliers
+                                     let supplier_jq = (from supplier in _aDMStore.Suppliers
                                                        join status in _aDMStore.SupplierStatusCats on supplier.SupplierStatus equals status.Id
+                                                       where supplier.CardCode == order.Supplier
                                                        select new SupplierDetailsModel
                                                        {
                                                            CardCode = supplier.CardCode,
@@ -70,12 +71,11 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                                                Id = status.Id,
                                                                StatusName = status.StatusName
                                                            }
-                                                       }
-                                     let items_jq = from items in _aDMStore.PurchaseOrderItems
+                                                       }).First()
+                                     let items_jq = (from items in _aDMStore.PurchaseOrderItems
                                                     where items.DocNum == docNum
                                                     select new PurchaseOrderItemDetailsModel
                                                     {
-                                                        DocNum = items.DocNum,
                                                         Comments = items.Comments,
                                                         CreatedAt = items.CreatedAt,
                                                         CreatedBy = items.CreatedBy,
@@ -88,10 +88,10 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                                         UnitPrice = items.UnitPrice,
                                                         UpdatedAt= items.UpdatedAt,
                                                         Variation = items.Variation
-                                                    }
-            select new PurchaseOrderDetailsModel
+                                                    }).ToList()
+                                     select new PurchaseOrderDetailsModel
                                      {
-                                         Supplier = supplier_jq.First(),
+                                         Supplier = supplier_jq,
                                          CardCode = order.Supplier,
                                          Canceled = order.Canceled,
                                          CandeledDate = order.CandeledDate,
@@ -102,7 +102,8 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                          UpdatedAt = order.UpdatedAt,
                                          CanceledBy = order.CanceledBy,
                                          CreatedAt = order.CreatedAt,
-                                         Items = items_jq.ToList(),
+                                         DocTotal = order.DocTotal,
+                                         Items = items_jq,
                                          Contact = new SupplierContactDetailsModel
                                          {
                                              CardCode = order.SupplierContactNavigation.CardCode,
@@ -133,11 +134,16 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             return await queryPurchaseOrder.FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
+        public async Task<bool> ExistsAsync(int docNum)
+        {
+            return await _aDMStore.PurchaseOrders.AnyAsync(order => order.DocNum == docNum).ConfigureAwait(false);
+        }
+
         public async Task<List<PurchaseOrderBasicDetailsModel>> ListAsync()
         {
             var queryPurchaseOrder = from order in _aDMStore.PurchaseOrders
-                                     let supplier_jq = from supplier in _aDMStore.Suppliers
-                                                       join status in _aDMStore.SupplierStatusCats on supplier.SupplierStatus equals status.Id
+                                     let supplier_jq = (from supplier in _aDMStore.Suppliers
+                                                       where supplier.CardCode == order.Supplier
                                                        select new SupplierDetailsModel
                                                        {
                                                            CardCode = supplier.CardCode,
@@ -148,13 +154,13 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                                            CreatedBy = supplier.CreatedBy,
                                                            Status = new SupplierStatusDetailsModel
                                                            {
-                                                               Id = status.Id,
-                                                               StatusName = status.StatusName
+                                                               //Id = status.Id,
+                                                               //StatusName = status.StatusName
                                                            }
-                                                       }
+                                                       }).First()
                                      select new PurchaseOrderBasicDetailsModel
                                      {
-                                         Supplier = supplier_jq.First(),
+                                         Supplier = supplier_jq,
                                          CardCode = order.Supplier,
                                          Canceled = order.Canceled,
                                          CandeledDate = order.CandeledDate,
@@ -162,10 +168,30 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                          DocDate = order.DocDate,
                                          DocNum = order.DocNum,
                                          DocStatus = order.DocStatus,
+                                         DocTotal = order.DocTotal,
                                          UpdatedAt = order.UpdatedAt,
                                      };
 
             return await queryPurchaseOrder.ToListAsync().ConfigureAwait(false);
+        }
+
+        public async Task UpdateAsync(int docNum, string cardCode, int locationId, int contactId, string statusId)
+        {
+            var purchaseOrder = await _aDMStore.PurchaseOrders.FirstOrDefaultAsync(order => order.DocNum == docNum).ConfigureAwait(false);
+            if (purchaseOrder == null)
+            {
+                throw new NullReferenceException(nameof(purchaseOrder));
+            }
+
+            //var totalLines = await _aDMStore.PurchaseOrderItems.Where(order => order.DocNum == docNum).SumAsync(line => (line.UnitPrice * line.Quantity)).ConfigureAwait(false);
+
+            purchaseOrder.DocStatus = statusId;
+            purchaseOrder.Supplier = cardCode;
+            purchaseOrder.SupplierLocation = locationId;
+            purchaseOrder.SupplierContact = contactId;
+            //purchaseOrder.DocTotal = totalLines;
+            purchaseOrder.UpdatedAt = DateTime.Now;
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateDocTotal(int docNum)
@@ -179,6 +205,7 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             var totalLines = await _aDMStore.PurchaseOrderItems.Where(order => order.DocNum == docNum).SumAsync(line => (line.UnitPrice * line.Quantity)).ConfigureAwait(false);
 
             purchaseOrder.DocTotal = totalLines;
+            purchaseOrder.UpdatedAt = DateTime.Now;
 
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
         }

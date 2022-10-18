@@ -18,5 +18,6 @@ namespace ADM.Store.Service.Interfaces
         public Task<bool> DeleteOptionAsync(string itemCode, string variation);
         public Task<ItemOptionDetailsModel> DetailsOptionAsync(string itemCode, string variation);
         public Task<List<ItemOptionDetailsModel>> ListOptionAsync(string itemCode);
+        public Task<string> ValidateItemCodeVariation(string itemCode);
     }
 }

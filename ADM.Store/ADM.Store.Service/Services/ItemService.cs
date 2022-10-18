@@ -366,6 +366,53 @@ namespace ADM.Store.Service.Services
             return listOptions;
         }
 
+        public async Task<string> ValidateItemCodeVariation(string itemCode)
+        {
+            if (string.IsNullOrWhiteSpace(itemCode))
+            {
+                throw new ExceptionService(400, $"Please select a valid item");
+            }
+
+            string baseCode = "";
+
+            if (itemCode.Contains("-"))
+            {
+                baseCode = itemCode.Split("-")[0];
+            }
+            else
+            {
+                baseCode = itemCode.Trim();
+            }
+
+            var details = await _itemRepository.DetailsAsync(baseCode.Trim()).ConfigureAwait(false);
+
+            if (details == null)
+            {
+                throw new ExceptionService(404, $"The item [{itemCode.Trim()}] selected was not found");
+            }
+
+            if (details.ManagedByOptions && !itemCode.Contains("-") || details.ManagedByOptions && itemCode.Contains("-") && string.IsNullOrWhiteSpace(itemCode.Split("-")[1]))
+            {
+                throw new ExceptionService(404, $"The item [{itemCode.Trim()}] is a root item, please select a variation");
+            }
+
+            if(details.ManagedByOptions && itemCode.Contains("-") && !string.IsNullOrWhiteSpace(itemCode.Split("-")[1]))
+            {
+                var variation = await _optionRepository.DetailsAsync(baseCode, itemCode.Split("-")[1]).ConfigureAwait(false);
+                if (variation == null)
+                {
+                    throw new ExceptionService(404, $"The item [{itemCode.Trim()}] has not the variation [{itemCode.Split("-")[1]}]");
+                }
+
+                return $"{details.ItemTile}, talla: {variation.Size}";
+
+
+            }
+
+            return details.ItemTile;
+
+        }
+
         #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace ADM.Store.Models.Models.PurchaseOrder
 {
     public class PurchaseOrderItemDetailsModel
     {
-        public int DocNum { get; set; }
+        public string TypeItem { get; set; } = null!;
         public string ItemCode { get; set; } = null!;
         public string? Variation { get; set; }
         public decimal UnitPrice { get; set; }
@@ -25,7 +25,7 @@ namespace ADM.Store.Models.Models.PurchaseOrder
 
     public class PurchaseOrderItemCreateModel
     {
-        public int DocNum { get; set; }
+        public string TypeItem { get; set; } = null!;
         public string ItemCode { get; set; } = null!;
         public string? Variation { get; set; }
         public decimal UnitPrice { get; set; }

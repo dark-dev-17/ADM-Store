@@ -21,7 +21,7 @@ namespace ADM.Store.Service
             services.AddTransient<ISupplierContactService, SupplierContactService>();
             services.AddTransient<ISupplierLocationService, SupplierLocationService>();
             services.AddTransient<ISupplierStatusService, SupplierStatusService>();
-            //services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
             return services;
         }
     }

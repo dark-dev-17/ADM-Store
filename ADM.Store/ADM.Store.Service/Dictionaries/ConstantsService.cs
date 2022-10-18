@@ -13,6 +13,8 @@ namespace ADM.Store.Service.Dictionaries
         public static string SUPPLIER_NOTFOUND = "Proveedor no encontrado";
         public static string SUPPLIER_IS_ALREADY_CREATED_CARDCODE = "El codigo de proveedor ya ha sido registrado";
         public static string SUPPLIER_CONTACT_NOTFOUND = "Contacto no encontrado";
+        public static string PURCHASE_ORDER_NOT_CREATED = "Orden no creada";
+        public static string PURCHASE_ORDER_NOT_FOUND = "Orden no creada";
 
     }
 }
