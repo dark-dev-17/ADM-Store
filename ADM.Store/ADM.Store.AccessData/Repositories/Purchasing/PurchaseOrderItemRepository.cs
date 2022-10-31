@@ -43,7 +43,6 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             {
                 DocNum = docNum,
                 ItemCode = itemCreateModel.ItemCode,
-                Variation = itemCreateModel.Variation,
                 LineNum = itemCreateModel.LineNum,
                 UnitPrice = itemCreateModel.UnitPrice,
                 Quantity = itemCreateModel.Quantity,
@@ -51,7 +50,9 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                 Comments = itemCreateModel.Comments,
                 Reference1 = itemCreateModel.Reference1,
                 Reference2 = itemCreateModel.Reference2,
-                TypeItem = itemCreateModel.TypeItem,
+                WeightItem = itemCreateModel.WeightItem,
+                PriceByGrs = itemCreateModel.PriceByGrs,
+                FactorRevenue = itemCreateModel.FactorRevenue,
                 // TODO service-user
                 CreatedBy = "USER-SYS",
                 UpdatedAt = DateTime.Now,
@@ -63,8 +64,7 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
         {
             var ItemDetails = await _aDMStore.PurchaseOrderItems.FirstOrDefaultAsync(item =>
             item.DocNum == itemDeleteModel.DocNum &&
-            item.ItemCode == itemDeleteModel.ItemCode &&
-            item.Variation == itemDeleteModel.Variation)
+            item.ItemCode == itemDeleteModel.ItemCode)
                 .ConfigureAwait(false);
 
             if (ItemDetails == null)
@@ -85,8 +85,7 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
         {
             var ItemDetails = await _aDMStore.PurchaseOrderItems.FirstOrDefaultAsync(item =>
             item.DocNum == itemUpdateModel.DocNum &&
-            item.ItemCode == itemUpdateModel.ItemCode &&
-            item.Variation == itemUpdateModel.Variation)
+            item.ItemCode == itemUpdateModel.ItemCode)
                 .ConfigureAwait(false);
 
             if(ItemDetails == null)
@@ -96,13 +95,15 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
 
 
             ItemDetails.ItemCode = itemUpdateModel.ItemCode;
-            ItemDetails.Variation = itemUpdateModel.Variation;
             ItemDetails.UnitPrice = itemUpdateModel.UnitPrice;
             ItemDetails.Quantity = itemUpdateModel.Quantity;
             ItemDetails.Total = ItemDetails.UnitPrice * ItemDetails.Quantity;
             ItemDetails.LineNum = itemUpdateModel.LineNum;
             ItemDetails.Reference1 = itemUpdateModel.Reference1;
             ItemDetails.Reference2 = itemUpdateModel.Reference2;
+            ItemDetails.WeightItem = itemUpdateModel.WeightItem;
+            ItemDetails.PriceByGrs = itemUpdateModel.PriceByGrs;
+            ItemDetails.FactorRevenue = itemUpdateModel.FactorRevenue;
             ItemDetails.Comments = itemUpdateModel.Comments;
             ItemDetails.CreatedAt = DateTime.Now;
             ItemDetails.UpdatedAt = DateTime.Now;

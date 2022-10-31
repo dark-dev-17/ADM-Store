@@ -22,6 +22,20 @@ namespace ADM.Store.Models.Models.PurchaseOrder
         public bool Canceled { get; set; }
         public DateTime CandeledDate { get; set; }
         public decimal DocTotal { get; set; }
+        public decimal DocTotalSales
+        {
+            get
+            {
+                return Items.Sum(item => item.PriceSale);
+            }
+        }
+        public decimal DocTotalRevenue
+        {
+            get
+            {
+                return Items.Sum(item => item.TotalRevenue);
+            }
+        }
         public string CanceledBy { get; set; } = null!;
         public string CreatedBy { get; set; } = null!;
         public DateTime CreatedAt { get; set; }

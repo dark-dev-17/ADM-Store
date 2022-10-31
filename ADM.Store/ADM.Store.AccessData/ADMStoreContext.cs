@@ -385,7 +385,11 @@ namespace ADM.Store.AccessData
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(200);
 
+                entity.Property(e => e.FactorRevenue).HasColumnType("decimal(10, 2)");
+
                 entity.Property(e => e.ItemCode).HasMaxLength(50);
+
+                entity.Property(e => e.PriceByGrs).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.Reference1).HasMaxLength(50);
 
@@ -393,18 +397,16 @@ namespace ADM.Store.AccessData
 
                 entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
 
-                entity.Property(e => e.TypeItem).HasMaxLength(3);
-
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
-                entity.Property(e => e.Variation).HasMaxLength(3);
+                entity.Property(e => e.WeightItem).HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.DocNumNavigation)
                     .WithMany(p => p.PurchaseOrderItems)
                     .HasForeignKey(d => d.DocNum)
-                    .HasConstraintName("FK__PurchaseO__DocNu__6FE99F9F");
+                    .HasConstraintName("FK__PurchaseO__DocNu__05D8E0BE");
             });
 
             modelBuilder.Entity<SalesOrder>(entity =>

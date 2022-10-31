@@ -373,6 +373,11 @@ namespace ADM.Store.Service.Services
                 throw new ExceptionService(400, $"Please select a valid item");
             }
 
+            if (itemCode == "CONSUM")
+            {
+                return "Consumible";
+            }
+
             string baseCode = "";
 
             if (itemCode.Contains("-"))

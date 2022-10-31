@@ -8,12 +8,13 @@ namespace ADM.Store.AccessData.Entities
         public int Id { get; set; }
         public int? DocNum { get; set; }
         public string ItemCode { get; set; } = null!;
-        public string? Variation { get; set; }
-        public string TypeItem { get; set; } = null!;
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
         public int LineNum { get; set; }
+        public decimal WeightItem { get; set; }
+        public decimal PriceByGrs { get; set; }
+        public decimal FactorRevenue { get; set; }
         public string? Reference1 { get; set; }
         public string? Reference2 { get; set; }
         public string? Comments { get; set; }

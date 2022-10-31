@@ -85,9 +85,11 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                                                         Reference1 = items.Reference1,
                                                         Reference2 = items.Reference2,
                                                         Total = items.Total,
+                                                        PriceByGrs = items.PriceByGrs,
+                                                        WeightItem = items.WeightItem,
+                                                        FactorRevenue = items.FactorRevenue,
                                                         UnitPrice = items.UnitPrice,
                                                         UpdatedAt= items.UpdatedAt,
-                                                        Variation = items.Variation
                                                     }).ToList()
                                      select new PurchaseOrderDetailsModel
                                      {
