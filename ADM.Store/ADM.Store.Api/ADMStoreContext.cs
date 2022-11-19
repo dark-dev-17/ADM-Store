@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ADM.Store.AccessData.Entities;
+using ADM.Store.Api.Entities;
 
-namespace ADM.Store.AccessData
+namespace ADM.Store.Api
 {
     public partial class ADMStoreContext : DbContext
     {

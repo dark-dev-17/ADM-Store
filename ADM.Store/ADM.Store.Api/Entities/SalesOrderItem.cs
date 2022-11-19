@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ADM.Store.AccessData.Entities
+namespace ADM.Store.Api.Entities
 {
     public partial class SalesOrderItem
     {

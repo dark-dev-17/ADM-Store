@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ADM.Store.WebPage/1.0.0": {
+        "runtime": {
+          "ADM.Store.WebPage.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ADM.Store.WebPage/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
