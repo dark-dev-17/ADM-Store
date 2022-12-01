@@ -1,7 +1,9 @@
 ﻿using ADM.Store.AccessData.Interfaces;
 using ADM.Store.AccessData.Interfaces.Purchasing;
+using ADM.Store.AccessData.Interfaces.Sales;
 using ADM.Store.AccessData.Repositories;
 using ADM.Store.AccessData.Repositories.Purchasing;
+using ADM.Store.AccessData.Repositories.Sales;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,10 @@ namespace ADM.Store.AccessData
             services.AddTransient<ISupplierStatusRepository, SupplierStatusRepository>();
             services.AddTransient<IPurchaseOrderRepository, PurchaseOrderRepository>();
             services.AddTransient<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
+
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ISalesOrderRepository, SalesOrderRepository>();
+            services.AddTransient<ISalesOrderItemRepository, SalesOrderItemRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

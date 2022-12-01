@@ -12,6 +12,5 @@
 	CreatedBy nvarchar(200) not null,
 	CreatedAt datetime not null,
 	UpdatedAt datetime not null,
-	Foreign key(Customer) references Customer(Id),
-	Foreign key(DocType) references SalesOrderType(Id),
+	Foreign key(Customer) references Customer(Id)
 )

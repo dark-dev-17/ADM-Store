@@ -70,6 +70,27 @@ namespace ADM.Store.AccessData.Repositories.Sales
             return await query_detailsCustomer.FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
+        public async Task<CustomerDetailsModel?> ExistsAsync(string firstName, string lastName)
+        {
+            var query_detailsCustomer = from customer in _aDMStore.Customers
+                                        where customer.FirtName == firstName && customer.LastName == lastName
+                                        select new CustomerDetailsModel
+                                        {
+                                            Id = customer.Id,
+                                            LastName = customer.LastName,
+                                            Email = customer.Email,
+                                            FirtName = customer.FirtName,
+                                            PhoneNumber = customer.PhoneNumber,
+                                            Group1 = customer.Group1,
+                                            Group2 = customer.Group2,
+                                            Group3 = customer.Group3,
+                                            CreatedBy = customer.CreatedBy,
+                                            UpdatedAt = customer.UpdatedAt,
+                                            CreatedAt = customer.UpdatedAt,
+                                        };
+            return await query_detailsCustomer.FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
         public async Task<List<CustomerDetailsModel>> ListAsync()
         {
             var query_detailsCustomer = from customer in _aDMStore.Customers

@@ -30,6 +30,11 @@ namespace ADM.Store.Models.Models.SalesOrder
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
+    public class SalesOrderDetailsFullModel
+    {
+        public SalesOrderDetailsModel Header { get; set; } = null!;
+        public List<SalesOrderItemDetailsModel> Lines { get; set; } = null!;
+    }
 
     public class SalesOrderUpdateModel
     {

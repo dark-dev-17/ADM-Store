@@ -10,5 +10,6 @@ namespace ADM.Store.Service.Interfaces.Inventory
         public Task<int> CreateAsync(PurchaseOrderCreateModel orderCreateModel);
         public Task<List<PurchaseOrderBasicDetailsModel>> ListAsync();
         public Task UpdateAsync(int docNum, PurchaseOrderUpdateModel orderUpdateModel);
+        public Task<PurchaseOrderItemDetailsModel?> DetailsItemAsync(string itemCode);
     }
 }

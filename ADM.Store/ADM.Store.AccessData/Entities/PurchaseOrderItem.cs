@@ -15,6 +15,8 @@ namespace ADM.Store.AccessData.Entities
         public decimal WeightItem { get; set; }
         public decimal PriceByGrs { get; set; }
         public decimal FactorRevenue { get; set; }
+        public decimal PublicPrice { get; set; }
+        public bool IsSold { get; set; }
         public string? Reference1 { get; set; }
         public string? Reference2 { get; set; }
         public string? Comments { get; set; }

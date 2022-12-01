@@ -7,6 +7,7 @@ namespace ADM.Store.AccessData.Interfaces.Sales
     internal interface ICustomerRepository
     {
         public Task<int> CreateAsync(string firstName,string lastName,string phoneNumber, string emailAddress);
+        public Task<CustomerDetailsModel?> ExistsAsync(string firstName, string lastName);
         public Task<CustomerDetailsModel?> DetailsAsync(int customerNumber);
         public Task<List<CustomerDetailsModel>> ListAsync();
         public Task DeleteAsync(int id);

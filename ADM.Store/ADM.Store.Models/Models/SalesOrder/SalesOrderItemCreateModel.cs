@@ -9,7 +9,7 @@ namespace ADM.Store.Models.Models.SalesOrder
     public class SalesOrderItemCreateModel
     {
         public int DocNum { get; set; }
-        public string? ItemCode { get; set; }
+        public string ItemCode { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
@@ -23,7 +23,7 @@ namespace ADM.Store.Models.Models.SalesOrder
     {
         public int Id { get; set; }
         public int DocNum { get; set; }
-        public string? ItemCode { get; set; }
+        public string ItemCode { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }

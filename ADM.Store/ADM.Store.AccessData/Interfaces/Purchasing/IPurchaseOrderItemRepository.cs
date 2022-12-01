@@ -12,5 +12,7 @@ namespace ADM.Store.AccessData.Interfaces.Purchasing
         public Task DeleteAsync(List<PurchaseOrderItemDeleteModel> itemDeleteModel);
         public Task UpdateAsync(PurchaseOrderItemUpdateModel itemUpdateModel);
         public Task UpdateAsync(List<PurchaseOrderItemUpdateModel> itemUpdateModel);
+        public void MoveToStolenAsync(string itemCode, bool isStolen);
+        public Task<PurchaseOrderItemDetailsModel?> DetailsAsync(string itemCode);
     }
 }

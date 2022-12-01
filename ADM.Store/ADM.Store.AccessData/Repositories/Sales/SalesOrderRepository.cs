@@ -15,15 +15,31 @@ namespace ADM.Store.AccessData.Repositories.Sales
         {
             _aDMStore = aDMStore;
         }
-        public async Task<int> CreateAsync(SalesOrderCreateModel orderCreateModel)
+
+        public async Task ChangeStatusAsync(int docNum, string status)
+        {
+            var orderRegistered = await _aDMStore.SalesOrders.FirstOrDefaultAsync(customer => customer.DocNum == docNum).ConfigureAwait(false);
+
+            if (orderRegistered == null)
+            {
+                throw new NullReferenceException(nameof(orderRegistered));
+            }
+
+            orderRegistered.DocStatus = status;
+            orderRegistered.UpdatedAt = DateTime.Now;
+
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<int> CreateAsync(int customerNumber,DateTime docDate,int docType, string docStatus)
         {
             var newSalesOrder = new SalesOrder
             {
-                DocDate = orderCreateModel.DocDate,
-                DocStatus = orderCreateModel.DocStatus,
-                DocTotal = orderCreateModel.DocTotal,
-                DocType = orderCreateModel.DocType,
-                Customer = orderCreateModel.Customer,
+                DocDate = docDate,
+                DocStatus = docStatus,
+                DocTotal = 0,
+                DocType = docType,
+                Customer = customerNumber,
                 Canceled = false,
                 CanceledBy = string.Empty,
                 CandeledDate = DateTime.Now,
@@ -199,6 +215,21 @@ namespace ADM.Store.AccessData.Repositories.Sales
             orderRegistered.Canceled = orderUpdateModel.Canceled;
             orderRegistered.CanceledBy = orderUpdateModel.CanceledBy;
             orderRegistered.CandeledDate = orderUpdateModel.CandeledDate;
+            orderRegistered.UpdatedAt = DateTime.Now;
+
+            await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task UpdateTotalAsync(int docNum)
+        {
+            var orderRegistered = await _aDMStore.SalesOrders.FirstOrDefaultAsync(customer => customer.DocNum == docNum).ConfigureAwait(false);
+
+            if (orderRegistered == null)
+            {
+                throw new NullReferenceException(nameof(orderRegistered));
+            }
+
+            orderRegistered.DocTotal = await _aDMStore.SalesOrderItems.Where(line => line.DocNum == docNum).SumAsync(line => line.Total).ConfigureAwait(false);
             orderRegistered.UpdatedAt = DateTime.Now;
 
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);

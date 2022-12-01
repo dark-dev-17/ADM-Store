@@ -9,6 +9,8 @@
     WeightItem decimal(10,2) default 0 not null,
     PriceByGrs decimal(10,2) default 0  NOT NULL,
     FactorRevenue decimal(10,2) default 0  not null,
+    PublicPrice decimal(10,2) default 0 not null,
+    isSold bit default 0 not null,
     [Reference1] NVARCHAR (50)   NULL,
     [Reference2] NVARCHAR (50)   NULL,
     [Comments]   NVARCHAR (MAX)  NULL,

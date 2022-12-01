@@ -387,9 +387,13 @@ namespace ADM.Store.AccessData
 
                 entity.Property(e => e.FactorRevenue).HasColumnType("decimal(10, 2)");
 
+                entity.Property(e => e.IsSold).HasColumnName("isSold");
+
                 entity.Property(e => e.ItemCode).HasMaxLength(50);
 
                 entity.Property(e => e.PriceByGrs).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.PublicPrice).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.Reference1).HasMaxLength(50);
 
@@ -406,7 +410,7 @@ namespace ADM.Store.AccessData
                 entity.HasOne(d => d.DocNumNavigation)
                     .WithMany(p => p.PurchaseOrderItems)
                     .HasForeignKey(d => d.DocNum)
-                    .HasConstraintName("FK__PurchaseO__DocNu__05D8E0BE");
+                    .HasConstraintName("FK__PurchaseO__DocNu__1AD3FDA4");
             });
 
             modelBuilder.Entity<SalesOrder>(entity =>
@@ -439,12 +443,6 @@ namespace ADM.Store.AccessData
                     .HasForeignKey(d => d.Customer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SalesOrde__Custo__619B8048");
-
-                entity.HasOne(d => d.DocTypeNavigation)
-                    .WithMany(p => p.SalesOrders)
-                    .HasForeignKey(d => d.DocType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SalesOrde__DocTy__628FA481");
             });
 
             modelBuilder.Entity<SalesOrderItem>(entity =>

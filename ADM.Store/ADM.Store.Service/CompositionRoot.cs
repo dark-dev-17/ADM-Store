@@ -1,7 +1,9 @@
 ﻿using ADM.Store.Service.Interfaces;
 using ADM.Store.Service.Interfaces.Inventory;
+using ADM.Store.Service.Interfaces.Sales;
 using ADM.Store.Service.Services;
 using ADM.Store.Service.Services.Inventory;
+using ADM.Store.Service.Services.Sales;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
@@ -22,6 +24,9 @@ namespace ADM.Store.Service
             services.AddTransient<ISupplierLocationService, SupplierLocationService>();
             services.AddTransient<ISupplierStatusService, SupplierStatusService>();
             services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
+
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ISalesOrderService, SalesOrderService>();
             return services;
         }
     }

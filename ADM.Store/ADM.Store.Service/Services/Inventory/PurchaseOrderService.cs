@@ -64,6 +64,13 @@ namespace ADM.Store.Service.Services.Inventory
             return orderDetails;
         }
 
+        public async Task<PurchaseOrderItemDetailsModel?> DetailsItemAsync(string itemCode)
+        {
+            if (string.IsNullOrWhiteSpace(itemCode)) throw new ArgumentNullException(itemCode);
+
+            return await _orderItemRepository.DetailsAsync(itemCode).ConfigureAwait(false);
+        }
+
         public async Task<List<PurchaseOrderBasicDetailsModel>> ListAsync()
         {
             return await _orderRepository.ListAsync().ConfigureAwait(false);

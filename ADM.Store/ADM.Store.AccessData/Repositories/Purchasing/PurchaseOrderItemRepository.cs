@@ -33,7 +33,7 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                     var newItem = SetCreate(docNum, item);
                     await _aDMStore.PurchaseOrderItems.AddAsync(newItem).ConfigureAwait(false);
                 });
-                    await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
+                await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -51,6 +51,7 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
                 Reference1 = itemCreateModel.Reference1,
                 Reference2 = itemCreateModel.Reference2,
                 WeightItem = itemCreateModel.WeightItem,
+                PublicPrice = itemCreateModel.PublicPrice,
                 PriceByGrs = itemCreateModel.PriceByGrs,
                 FactorRevenue = itemCreateModel.FactorRevenue,
                 // TODO service-user
@@ -105,7 +106,8 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
             ItemDetails.PriceByGrs = itemUpdateModel.PriceByGrs;
             ItemDetails.FactorRevenue = itemUpdateModel.FactorRevenue;
             ItemDetails.Comments = itemUpdateModel.Comments;
-            ItemDetails.CreatedAt = DateTime.Now;
+            ItemDetails.PublicPrice = itemUpdateModel.PublicPrice;
+            //ItemDetails.CreatedAt = DateTime.Now;
             ItemDetails.UpdatedAt = DateTime.Now;
 
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
@@ -114,6 +116,49 @@ namespace ADM.Store.AccessData.Repositories.Purchasing
         public Task UpdateAsync(List<PurchaseOrderItemUpdateModel> itemUpdateModel)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<PurchaseOrderItemDetailsModel?> DetailsAsync(string itemCode)
+        {
+            var qr_detailsItem = from items in _aDMStore.PurchaseOrderItems
+                                 where items.Reference1 == itemCode
+                                 select new PurchaseOrderItemDetailsModel
+                                 {
+                                     Comments = items.Comments,
+                                     CreatedAt = items.CreatedAt,
+                                     CreatedBy = items.CreatedBy,
+                                     ItemCode = items.ItemCode,
+                                     LineNum = items.LineNum,
+                                     Quantity = items.Quantity,
+                                     Reference1 = items.Reference1,
+                                     Reference2 = items.Reference2,
+                                     Total = items.Total,
+                                     PriceByGrs = items.PriceByGrs,
+                                     WeightItem = items.WeightItem,
+                                     FactorRevenue = items.FactorRevenue,
+                                     UnitPrice = items.UnitPrice,
+                                     UpdatedAt = items.UpdatedAt,
+                                     PublicPrice = items.PublicPrice,
+                                     IsSold = items.IsSold,
+                                 };
+
+            return await qr_detailsItem.FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        public void MoveToStolenAsync(string itemCode, bool isStolen)
+        {
+            var ItemDetails = _aDMStore.PurchaseOrderItems.FirstOrDefault(item => item.Reference1 == itemCode);
+
+            if (ItemDetails == null)
+            {
+                throw new NullReferenceException(nameof(ItemDetails));
+            }
+
+            ItemDetails.IsSold = isStolen;
+            //ItemDetails.CreatedAt = DateTime.Now;
+            ItemDetails.UpdatedAt = DateTime.Now;
+
+            _aDMStore.SaveChanges();
         }
     }
 }

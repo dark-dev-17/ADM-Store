@@ -25,7 +25,6 @@ namespace ADM.Store.AccessData.Entities
         public DateTime UpdatedAt { get; set; }
 
         public virtual Customer CustomerNavigation { get; set; } = null!;
-        public virtual SalesOrderType DocTypeNavigation { get; set; } = null!;
         public virtual ICollection<IncommingPayment> IncommingPayments { get; set; }
         public virtual ICollection<SalesOrderItem> SalesOrderItems { get; set; }
     }

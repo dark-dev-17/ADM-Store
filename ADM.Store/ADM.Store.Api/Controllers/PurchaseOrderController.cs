@@ -1,4 +1,5 @@
 ﻿using ADM.Store.Models.Models.PurchaseOrder;
+using ADM.Store.Models.Models.SalesOrder;
 using ADM.Store.Service.Exceptions;
 using ADM.Store.Service.Interfaces.Inventory;
 using Microsoft.AspNetCore.Http;
@@ -114,6 +115,31 @@ namespace ADM.Store.Api.Controllers
                 {
                     return BadRequest(ex.Message);
                 }
+            }
+        }
+
+
+        [HttpGet("item-details/{itemCode}")]
+        [ProducesResponseType(typeof(PurchaseOrderItemDetailsModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DetailsItemAsync(string itemCode)
+        {
+            if (string.IsNullOrWhiteSpace(itemCode))
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var detailsLineRegistered = await _purchaseOrderService.DetailsItemAsync(itemCode).ConfigureAwait(false);
+
+                if (detailsLineRegistered == null) return NotFound();
+
+                return Ok(detailsLineRegistered);
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
             }
         }
     }
