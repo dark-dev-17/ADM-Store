@@ -36,6 +36,7 @@ namespace ADM.Store.AccessData
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ISalesOrderRepository, SalesOrderRepository>();
             services.AddTransient<ISalesOrderItemRepository, SalesOrderItemRepository>();
+            services.AddTransient<IBussinesAccountRepository, BussinesAccountRepository>();
 
             services.AddDbContext<ADMStoreContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:default"], o => o.EnableRetryOnFailure()));

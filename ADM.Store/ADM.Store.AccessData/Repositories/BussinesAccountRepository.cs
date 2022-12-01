@@ -37,6 +37,7 @@ namespace ADM.Store.AccessData.Repositories
             await _aDMStore.BussinesAccountHistories.AddAsync(newHistoryLine).ConfigureAwait(false);
             await _aDMStore.SaveChangesAsync().ConfigureAwait(false);
         }
+        
         private string MapBussinesAccountHistoryType(BussinesAccountHistoryType historyType)
         {
             switch (historyType)
@@ -49,6 +50,7 @@ namespace ADM.Store.AccessData.Repositories
                     return "";
             }
         }
+        
         private string MapBussinesAccountDocRefType(BussinesAccountDocRefType docRefType)
         {
             switch (docRefType)

@@ -27,6 +27,8 @@ namespace ADM.Store.Service
 
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ISalesOrderService, SalesOrderService>();
+            services.AddTransient<IBussinesAccountService, BussinesAccountService>();
+
             return services;
         }
     }
